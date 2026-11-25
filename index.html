@@ -1481,6 +1481,110 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+  /* =========================================================
+   AI CHATBOT LOGIC (RESTORED)
+   ========================================================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+  const chatbotForm = document.getElementById('chatbotForm');
+  const chatbotInput = document.getElementById('chatbotInput');
+  const chatbotBody = document.getElementById('chatbotBody');
+  const chatbotSuggestions = document.getElementById('chatbotSuggestions');
+
+  if (!chatbotForm || !chatbotBody) return;
+
+  // 1. Prevent page reset when submitting the chat
+  chatbotForm.addEventListener('submit', (e) => {
+    e.preventDefault(); // THIS STOPS THE PAGE FROM RESETTING
+    
+    const text = chatbotInput.value.trim();
+    if (!text) return;
+
+    // Add user's message to the chat
+    addChatMessage(text, 'me');
+    chatbotInput.value = '';
+    chatbotSuggestions.innerHTML = ''; // Clear suggestion chips
+
+    // 2. Simulate AI "typing" delay
+    setTimeout(() => {
+      // Remove typing indicator
+      const typing = document.getElementById('botTyping');
+      if (typing) typing.remove();
+
+      // Generate a smart, contextual response based on keywords
+      const lowerText = text.toLowerCase();
+      let response = "";
+
+      if (lowerText.includes('price') || lowerText.includes('cost') || lowerText.includes('rate') || lowerText.includes('how much')) {
+        response = "Our tutors set their own rates, usually ranging from ₹250 to ₹600 per hour depending on the subject and their experience. You can filter by price on the Marketplace page!";
+      } 
+      else if (lowerText.includes('tutor') || lowerText.includes('find') || lowerText.includes('need help')) {
+        response = "I can help with that! Just use the <strong>AI Match</strong> bar at the top of the page. Describe what you need (e.g., 'I need help with Calculus') and I'll find the best peer tutors for you.";
+      } 
+      else if (lowerText.includes('book') || lowerText.includes('session') || lowerText.includes('request')) {
+        response = "To book a session, click the <strong>Book</strong> button on any tutor's card. You'll send them a request, and once they accept, you can chat and schedule your session.";
+      } 
+      else if (lowerText.includes('refund') || lowerText.includes('cancel')) {
+        response = "You can cancel a session request anytime before the tutor accepts it. If a tutor cancels, you won't be charged. Any payments are held securely in escrow.";
+      } 
+      else if (lowerText.includes('hello') || lowerText.includes('hi') || lowerText.includes('hey')) {
+        response = "Hello! 👋 I'm UniGig AI. I can help you find a tutor, understand pricing, or navigate the platform. What do you need help with today?";
+      } 
+      else {
+        response = "That's a great question. As a student marketplace, we focus on peer-to-peer learning. You can browse the <strong>Marketplace</strong> for subjects or click <strong>Offer a Skill</strong> if you want to start tutoring yourself!";
+      }
+
+      // Add bot response
+      addChatMessage(response, 'bot');
+      
+      // Add new suggestions
+      updateSuggestions();
+      
+    }, 1200); // 1.2 second delay
+  });
+
+  // Helper to add a message bubble to the UI
+  function addChatMessage(html, type) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `chatbot-msg ${type}`;
+    msgDiv.innerHTML = html;
+    chatbotBody.appendChild(msgDiv);
+    
+    // Auto-scroll to the bottom
+    chatbotBody.scrollTop = chatbotBody.scrollHeight;
+  }
+
+  // Helper to show the typing animation
+  function showTyping() {
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chatbot-msg bot typing';
+    typingDiv.id = 'botTyping';
+    typingDiv.innerHTML = '<span></span><span></span><span></span>';
+    chatbotBody.appendChild(typingDiv);
+    chatbotBody.scrollTop = chatbotBody.scrollHeight;
+  }
+
+  // Show typing animation when user submits
+  chatbotForm.addEventListener('submit', () => {
+    showTyping();
+  });
+
+  // Add clickable suggestion chips
+  function updateSuggestions() {
+    chatbotSuggestions.innerHTML = `
+      <button class="chatbot-chip" onclick="document.getElementById('chatbotInput').value='How much does it cost?'; document.getElementById('chatbotForm').dispatchEvent(new Event('submit'));">How much does it cost?</button>
+      <button class="chatbot-chip" onclick="document.getElementById('chatbotInput').value='How do I book a tutor?'; document.getElementById('chatbotForm').dispatchEvent(new Event('submit'));">How do I book?</button>
+    `;
+  }
+
+  // Welcome message on load
+  if (chatbotBody.children.length === 0) {
+    setTimeout(() => {
+      addChatMessage("Hi there! 👋 I'm <strong>UniGig AI</strong>. Need help finding a tutor, understanding prices, or booking a session? Let me know!", 'bot');
+      updateSuggestions();
+    }, 500);
+  }
+});
 </script>
 </body>
 </html>
