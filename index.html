@@ -1585,6 +1585,95 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 500);
   }
 });
+  /* =========================================================
+   POST A GIG FORM LOGIC (RESTORED)
+   ========================================================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+  const gigForm = document.getElementById('gigForm');
+  const gCategory = document.getElementById('gCategory');
+  const gDesc = document.getElementById('gDesc');
+  const descCount = document.getElementById('descCount');
+
+  // 1. POPULATE THE CATEGORY DROPDOWN
+  if (gCategory) {
+    // Clear existing options just in case
+    gCategory.innerHTML = '<option value="" disabled selected>Select a category...</option>';
+    
+    // Add our new categories (Computer Science, Math, etc.)
+    CATEGORIES.forEach(cat => {
+      const option = document.createElement('option');
+      option.value = cat;
+      option.textContent = cat;
+      gCategory.appendChild(option);
+    });
+  }
+
+  // 2. LIVE CHARACTER COUNTER FOR DESCRIPTION
+  if (gDesc && descCount) {
+    gDesc.addEventListener('input', (e) => {
+      descCount.textContent = e.target.value.length;
+    });
+  }
+
+  // 3. HANDLE FORM SUBMISSION (Publishing the Gig)
+  if (gigForm) {
+    gigForm.addEventListener('submit', (e) => {
+      e.preventDefault(); // Stop page reload
+
+      // Gather the form data
+      const title = document.getElementById('gTitle').value;
+      const category = gCategory.value;
+      const description = gDesc.value;
+      const rate = document.getElementById('gRate').value;
+      const videoUrl = document.getElementById('gVideo').value;
+
+      // Validate category
+      if (!category) {
+        alert("Please select a category!");
+        return;
+      }
+
+      // Create the new gig object
+      const newGig = {
+        id: 'g_' + Date.now(),
+        creatorId: CURRENT_USER_ID, // The person currently logged in
+        title: title,
+        category: category,
+        rate: Number(rate),
+        description: description,
+        createdAt: Date.now(),
+        hasVideo: videoUrl.trim() !== '' // true if a video link was pasted
+      };
+
+      // Save to our fake database
+      DB.gigs.unshift(newGig); // Add to the beginning of the list
+      saveDB(); // Save to localStorage
+
+      // Reset the form
+      gigForm.reset();
+      if (descCount) descCount.textContent = '0';
+
+      // Show success toast
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toastText');
+      if (toast && toastText) {
+        toastText.textContent = "Profile published successfully!";
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      }
+
+      // Switch to the marketplace view to see the new card
+      document.querySelector('nav.tabs button[data-view="marketplace"]').click();
+      
+      // Re-render the gigs to show the new one
+      if (typeof renderGigs === 'function') {
+        renderGigs(); 
+      }
+    });
+  }
+});
 </script>
 </body>
 </html>
