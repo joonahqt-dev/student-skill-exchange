@@ -1359,6 +1359,128 @@ function openBookingModal(gigId) {
     // You can add the logic to populate the modal summary here if you have it
   }
 }
+  /* =========================================================
+   NAVIGATION & UI CONTROLS (RESTORED)
+   ========================================================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+  // 1. TAB SWITCHING LOGIC
+  const tabs = document.querySelectorAll('nav.tabs button');
+  const mobileTabs = document.querySelectorAll('.mobile-nav button');
+  const views = document.querySelectorAll('.view');
+
+  function switchView(viewId) {
+    // Hide all views
+    views.forEach(v => v.classList.remove('active'));
+    // Show target view
+    const target = document.getElementById('view-' + viewId);
+    if (target) target.classList.add('active');
+
+    // Update active state on desktop tabs
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.view === viewId));
+    // Update active state on mobile tabs
+    mobileTabs.forEach(t => t.classList.toggle('active', t.dataset.view === viewId));
+  }
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => switchView(btn.dataset.view));
+  });
+
+  mobileTabs.forEach(btn => {
+    btn.addEventListener('click', () => switchView(btn.dataset.view));
+  });
+
+  // 2. BRAND LOGO CLICK (Goes to Marketplace)
+  const brandHome = document.getElementById('brandHome');
+  if (brandHome) {
+    brandHome.addEventListener('click', () => switchView('marketplace'));
+  }
+
+  // 3. THEME TOGGLE (Light/Dark Mode)
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle?.addEventListener('click', () => {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem(THEME_KEY, newTheme);
+  });
+
+  // Load saved theme on page load
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  }
+
+  // 4. USER SWITCHER (Acting as)
+  const userSelect = document.getElementById('userSelect');
+  if (userSelect) {
+    userSelect.addEventListener('change', (e) => {
+      CURRENT_USER_ID = e.target.value;
+      sessionStorage.setItem(SESSION_KEY, CURRENT_USER_ID);
+      
+      // Optional: Add a toast notification to show the switch
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toastText');
+      if (toast && toastText) {
+        toastText.textContent = `Switched to ${userById(CURRENT_USER_ID).name}`;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      }
+    });
+  }
+
+  // 5. COMMAND PALETTE (Search Icon)
+  const paletteBtn = document.getElementById('paletteBtn');
+  const paletteBackdrop = document.getElementById('paletteBackdrop');
+  const paletteInput = document.getElementById('paletteInput');
+  
+  if (paletteBtn && paletteBackdrop) {
+    paletteBtn.addEventListener('click', () => {
+      paletteBackdrop.classList.add('open');
+      if (paletteInput) paletteInput.focus();
+    });
+    
+    paletteBackdrop.addEventListener('click', (e) => {
+      if (e.target === paletteBackdrop) paletteBackdrop.classList.remove('open');
+    });
+  }
+
+  // 6. AI CHATBOT FAB
+  const chatbotFab = document.getElementById('chatbotFab');
+  const chatbotPanel = document.getElementById('chatbotPanel');
+  const chatbotClose = document.getElementById('chatbotClose');
+  
+  if (chatbotFab && chatbotPanel) {
+    chatbotFab.addEventListener('click', () => {
+      chatbotPanel.classList.toggle('open');
+      chatbotFab.classList.toggle('open');
+    });
+    
+    chatbotClose?.addEventListener('click', () => {
+      chatbotPanel.classList.remove('open');
+      chatbotFab.classList.remove('open');
+    });
+  }
+
+  // 7. MODAL CLOSE BUTTONS
+  document.querySelectorAll('[data-close-modal]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const modal = e.target.closest('.modal-backdrop');
+      if (modal) modal.classList.remove('open');
+    });
+  });
+
+  // 8. SEARCH BAR SHORTCUT (Press "/" to focus)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      document.getElementById('searchInput')?.focus();
+    }
+  });
+
+});
 </script>
 </body>
 </html>
