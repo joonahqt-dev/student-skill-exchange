@@ -3,21 +3,22 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Gigly — Where Young Creators Get Booked</title>
-<meta name="description" content="A creator gig marketplace. Post gigs, browse services, book creators, and grow." />
+<title>UniGig — Student Skill Exchange</title>
+<meta name="description" content="A peer tutoring marketplace. Exchange skills, book sessions, and ace your exams together." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 <style>
 /* ================= TOKENS ================= */
 :root, [data-theme="dark"] {
-  --bg: #08090d; --bg-soft: #0e1016;
-  --panel: #14161e; --panel-2: #1a1d27; --panel-3: #222633;
-  --border: #2a2f3d; --border-soft: #1c2029;
-  --text: #f1f4fa; --text-dim: #a8b0c2; --muted: #6b7384;
-  --accent: #8b5cf6; --accent-2: #a78bfa; --accent-3: #c4b5fd;
-  --accent-glow: rgba(139, 92, 246, 0.4);
-  --pink: #ec4899; --pink-glow: rgba(236, 72, 153, 0.35);
+  /* Clean Dark Mode */
+  --bg: #0f172a; --bg-soft: #1e293b;
+  --panel: #1e293b; --panel-2: #334155; --panel-3: #475569;
+  --border: #334155; --border-soft: #1e293b;
+  --text: #f8fafc; --text-dim: #cbd5e1; --muted: #94a3b8;
+  --accent: #0ea5e9; --accent-2: #38bdf8; --accent-3: #7dd3fc;
+  --accent-glow: rgba(14, 165, 233, 0.4);
+  --pink: #14b8a6; --pink-glow: rgba(20, 184, 166, 0.35); /* Teal */
   --cyan: #06b6d4; --green: #10b981; --green-soft: rgba(16, 185, 129, 0.12);
   --yellow: #fbbf24; --yellow-soft: rgba(251, 191, 36, 0.12);
   --red: #ef4444; --red-soft: rgba(239, 68, 68, 0.12);
@@ -26,25 +27,26 @@
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.35);
   --shadow: 0 8px 28px rgba(0,0,0,0.45);
   --shadow-lg: 0 24px 70px rgba(0,0,0,0.6);
-  --shadow-glow: 0 0 0 1px rgba(139,92,246,0.3), 0 12px 40px rgba(139,92,246,0.2);
-  --grid-line: rgba(255,255,255,0.025);
+  --shadow-glow: 0 0 0 1px rgba(14,165,233,0.3), 0 12px 40px rgba(14,165,233,0.2);
+  --grid-line: rgba(255,255,255,0.03);
 }
 [data-theme="light"] {
-  --bg: #f7f8fb; --bg-soft: #ffffff;
-  --panel: #ffffff; --panel-2: #f3f5f9; --panel-3: #e8ecf3;
-  --border: #dde2ec; --border-soft: #e8ecf3;
-  --text: #0a0d14; --text-dim: #4b5464; --muted: #8892a3;
-  --accent: #7c3aed; --accent-2: #8b5cf6; --accent-3: #a78bfa;
-  --accent-glow: rgba(124, 58, 237, 0.22);
-  --pink: #db2777; --pink-glow: rgba(219, 39, 119, 0.2);
+  /* Clean Light Mode */
+  --bg: #f8fafc; --bg-soft: #ffffff;
+  --panel: #ffffff; --panel-2: #f1f5f9; --panel-3: #e2e8f0;
+  --border: #cbd5e1; --border-soft: #e2e8f0;
+  --text: #0f172a; --text-dim: #334155; --muted: #64748b;
+  --accent: #0284c7; --accent-2: #0ea5e9; --accent-3: #38bdf8;
+  --accent-glow: rgba(2, 132, 199, 0.22);
+  --pink: #0d9488; --pink-glow: rgba(13, 148, 136, 0.2); /* Teal */
   --cyan: #0891b2; --green: #059669; --green-soft: rgba(5, 150, 105, 0.1);
   --yellow: #d97706; --yellow-soft: rgba(217, 119, 6, 0.1);
   --red: #dc2626; --red-soft: rgba(220, 38, 38, 0.1);
   --orange: #ea580c;
-  --shadow-sm: 0 1px 4px rgba(15, 20, 40, 0.06);
-  --shadow: 0 4px 16px rgba(15, 20, 40, 0.08);
-  --shadow-lg: 0 16px 48px rgba(15, 20, 40, 0.14);
-  --shadow-glow: 0 0 0 1px rgba(124,58,237,0.2), 0 8px 28px rgba(124,58,237,0.12);
+  --shadow-sm: 0 1px 4px rgba(15, 23, 42, 0.06);
+  --shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 16px 48px rgba(15, 23, 42, 0.14);
+  --shadow-glow: 0 0 0 1px rgba(2,132,199,0.2), 0 8px 28px rgba(2,132,199,0.12);
   --grid-line: rgba(0,0,0,0.025);
 }
 
@@ -650,15 +652,15 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
         <div class="brand-mark">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 L15 8 L22 9 L17 14 L18 21 L12 18 L6 21 L7 14 L2 9 L9 8 Z"/></svg>
         </div>
-        <div class="brand-text">Gigly</div>
+        <div class="brand-text">UniGig</div>
       </div>
 
       <nav class="tabs" id="tabs">
         <button data-view="marketplace" class="active">Marketplace</button>
-        <button data-view="post">Post a Gig</button>
-        <button data-view="dashboard">Dashboard <span class="pill" id="pendingBadge" style="display:none;">0</span></button>
+        <button data-view="post">Offer a Skill</button>
+        <button data-view="dashboard">Tutor Dashboard <span class="pill" id="pendingBadge" style="display:none;">0</span></button>
         <button data-view="messages">Messages <span class="pill msg" id="msgBadge" style="display:none;">0</span></button>
-        <button data-view="bookings">My Bookings</button>
+        <button data-view="bookings">My Sessions</button>
       </nav>
 
       <div class="topbar-actions">
@@ -708,8 +710,8 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
       </div>
 
       <div class="page-head">
-        <h1>Find a <span class="grad">creator</span>, get it done.</h1>
-        <p>Describe what you need in plain English. Our AI finds the best gigs, suggests a price, and drafts your message.</p>
+        <h1>Find a <span class="grad">peer tutor</span>, ace your exams.</h1>
+        <p>Describe what subject you need help with. Our AI matches you with the perfect student tutor on campus.</p>
 
         <div class="hero-orb-wrap" aria-hidden="true">
           <div class="hero-orb">
@@ -717,12 +719,12 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
             <div class="orb-ring r1"></div>
             <div class="orb-ring r2"></div>
             <div class="orb-ring r3"></div>
-            <div class="orb-icon">🎨</div>
             <div class="orb-icon">💻</div>
+            <div class="orb-icon">📐</div>
             <div class="orb-icon">✍️</div>
-            <div class="orb-icon">🎬</div>
-            <div class="orb-icon">🎵</div>
-            <div class="orb-icon">📈</div>
+            <div class="orb-icon">🔬</div>
+            <div class="orb-icon">📊</div>
+            <div class="orb-icon">🌍</div>
           </div>
         </div>
       </div>
@@ -730,23 +732,23 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
       <div class="ai-search-wrap">
         <div class="ai-search-head">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 9 L21 11 L14 13 L12 20 L10 13 L3 11 L10 9 Z"/></svg>
-          AI Match — describe your project
+          AI Match — describe what you need help with
         </div>
         <form id="aiSearchForm">
-          <input type="text" id="aiSearchInput" placeholder='Try: "I need a logo for my coffee shop under ₹2000"' autocomplete="off" />
+          <input type="text" id="aiSearchInput" placeholder='Try: "I need help with Data Structures midterms under ₹1000"' autocomplete="off" />
           <button type="submit" class="btn btn-ai">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 9 L21 11 L14 13 L12 20 L10 13 L3 11 L10 9 Z"/></svg>
             Match
           </button>
         </form>
-        <div class="ai-hint">AI will scan all gigs, rank them by fit, and draft a booking message you can send instantly.</div>
+        <div class="ai-hint">AI will scan all student profiles, rank them by fit, and draft a session request you can send instantly.</div>
       </div>
 
       <div id="aiResponseBox"></div>
 
       <div class="filters">
         <div class="search-wrap">
-          <input id="searchInput" type="text" placeholder="Or search gigs by keyword…" autocomplete="off" />
+          <input id="searchInput" type="text" placeholder="Or search subjects by keyword…" autocomplete="off" />
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           <span class="kbd">/</span>
         </div>
@@ -782,15 +784,15 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
       </div>
 
       <div class="page-head">
-        <h1>Post a new gig</h1>
-        <p>List a service you offer. AI will suggest an optimal price based on your description.</p>
+        <h1>Offer a skill / Become a tutor</h1>
+        <p>List a subject you excel at. AI will suggest an optimal hourly rate based on your description.</p>
       </div>
 
       <div class="panel panel-narrow">
         <form class="form-grid" id="gigForm" autocomplete="off">
           <div class="field">
-            <label for="gTitle">Gig title <span class="req">*</span></label>
-            <input id="gTitle" type="text" placeholder="e.g. I will design a modern logo" required maxlength="100" />
+            <label for="gTitle">Subject / Skill Title <span class="req">*</span></label>
+            <input id="gTitle" type="text" placeholder="e.g. I will tutor you in Calculus 1" required maxlength="100" />
           </div>
           <div class="field">
             <label for="gCategory">Category <span class="req">*</span></label>
@@ -798,23 +800,23 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
           </div>
           <div class="field">
             <label for="gDesc">Description <span class="req">*</span></label>
-            <textarea id="gDesc" placeholder="Describe what you'll deliver, your process, revisions, turnaround…" required maxlength="500"></textarea>
+            <textarea id="gDesc" placeholder="Describe what you'll teach, your experience, and availability…" required maxlength="500"></textarea>
             <span class="hint"><span id="descCount">0</span>/500</span>
           </div>
           <div class="field">
-            <label for="gRate">Your rate <span class="req">*</span></label>
+            <label for="gRate">Your rate (per hour) <span class="req">*</span></label>
             <div class="input-prefix">
               <span class="prefix">₹</span>
-              <input id="gRate" type="number" min="1" max="1000000" placeholder="1500" required />
+              <input id="gRate" type="number" min="1" max="1000000" placeholder="500" required />
             </div>
             <div id="priceSuggestBox"></div>
           </div>
           <div class="field">
             <label for="gVideo">15-second intro video (optional)</label>
             <input id="gVideo" type="url" placeholder="Paste a YouTube/Vimeo link…" />
-            <span class="hint">Video gigs convert up to 3× better</span>
+            <span class="hint">Profiles with intro videos get 3× more requests</span>
           </div>
-          <button type="submit" class="btn btn-primary btn-lg" style="width:fit-content;">Publish Gig</button>
+          <button type="submit" class="btn btn-primary btn-lg" style="width:fit-content;">Publish Profile</button>
         </form>
       </div>
     </section>
@@ -849,8 +851,8 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
       </div>
 
       <div class="page-head">
-        <h1>Creator Dashboard</h1>
-        <p>Manage incoming bookings, track revenue, and view trust metrics.</p>
+        <h1>Tutor Dashboard</h1>
+        <p>Manage incoming session requests, track earnings, and view your rating.</p>
       </div>
 
       <div class="stats-row" id="creatorStats"></div>
@@ -903,8 +905,8 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
       </div>
 
       <div class="page-head">
-        <h1>My Bookings</h1>
-        <p>Every gig you've requested, with status, escrow progress, and chat.</p>
+        <h1>My Tutoring Sessions</h1>
+        <p>Every session you've requested, with status, escrow progress, and chat.</p>
       </div>
       <div class="booking-list" id="myBookings"></div>
     </section>
@@ -920,18 +922,18 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
 
 <nav class="mobile-nav" id="mobileNav">
   <button data-view="marketplace" class="active">Explore</button>
-  <button data-view="post">Post</button>
-  <button data-view="dashboard">Inbox <span class="pill" id="mobilePendingBadge" style="display:none;">0</span></button>
+  <button data-view="post">Offer</button>
+  <button data-view="dashboard">Tutor <span class="pill" id="mobilePendingBadge" style="display:none;">0</span></button>
   <button data-view="messages">Chat <span class="pill" id="mobileMsgBadge" style="display:none;">0</span></button>
-  <button data-view="bookings">Bookings</button>
+  <button data-view="bookings">Sessions</button>
 </nav>
 
 <!-- BOOKING MODAL -->
 <div class="modal-backdrop" id="bookingModal">
   <div class="modal">
     <button class="modal-close" data-close-modal>✕</button>
-    <h3>Book this gig</h3>
-    <p class="sub">Send a request — the creator will accept or decline.</p>
+    <h3>Request this session</h3>
+    <p class="sub">Send a request — the tutor will accept or decline.</p>
     <div class="booking-summary" id="modalSummary"></div>
     <form class="form-grid" id="bookingForm" autocomplete="off">
       <input type="hidden" id="modalGigId" />
@@ -941,17 +943,17 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
       </div>
       <div class="field">
         <label style="justify-content: space-between;">
-          Message to the creator <span class="req">*</span>
+          Message to the tutor <span class="req">*</span>
           <button type="button" class="btn btn-ai btn-sm" id="aiDraftBtn" style="padding: 4px 10px; font-size: 11.5px;">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 9 L21 11 L14 13 L12 20 L10 13 L3 11 L10 9 Z"/></svg>
             AI Draft
           </button>
         </label>
-        <textarea id="bMessage" required maxlength="400" placeholder="Briefly describe what you need…"></textarea>
+        <textarea id="bMessage" required maxlength="400" placeholder="Briefly describe what you need help with…"></textarea>
         <span class="hint"><span id="msgCount">0</span>/400</span>
       </div>
       <div class="modal-actions">
-        <button type="submit" class="btn btn-primary">Send Booking Request</button>
+        <button type="submit" class="btn btn-primary">Send Session Request</button>
         <button type="button" class="btn btn-ghost" data-close-modal>Cancel</button>
       </div>
     </form>
@@ -962,10 +964,10 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
 <div class="modal-backdrop" id="confirmModal">
   <div class="modal confirm-modal" style="max-width: 440px;">
     <div class="confirm-icon">✅</div>
-    <h3>Booking Request Sent!</h3>
+    <h3>Session Request Sent!</h3>
     <p id="confirmText"></p>
     <div class="actions">
-      <button class="btn btn-primary" id="confirmViewBookings">View My Bookings</button>
+      <button class="btn btn-primary" id="confirmViewBookings">View My Sessions</button>
       <button class="btn btn-ghost" id="confirmClose">Keep Browsing</button>
     </div>
   </div>
@@ -992,7 +994,7 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
   <div class="modal">
     <button class="modal-close" data-close-modal>✕</button>
     <h3>Leave a review</h3>
-    <p class="sub">Rate this creator. Your review helps other clients.</p>
+    <p class="sub">Rate this tutor. Your review helps other students.</p>
     <form class="form-grid" id="reviewForm">
       <input type="hidden" id="reviewBookingId" />
       <div class="field">
@@ -1003,7 +1005,7 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
       </div>
       <div class="field">
         <label>Your review <span class="req">*</span></label>
-        <textarea id="reviewText" required maxlength="300" placeholder="What was it like working with them?"></textarea>
+        <textarea id="reviewText" required maxlength="300" placeholder="How was the session? Did they explain things clearly?"></textarea>
       </div>
       <div class="modal-actions">
         <button type="submit" class="btn btn-primary">Submit Review</button>
@@ -1029,13 +1031,13 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
 <!-- PALETTE -->
 <div class="palette-backdrop" id="paletteBackdrop">
   <div class="palette">
-    <input type="text" class="palette-input" id="paletteInput" placeholder="Search gigs, jump to pages, switch users…" />
+    <input type="text" class="palette-input" id="paletteInput" placeholder="Search subjects, jump to pages, switch users…" />
     <div class="palette-list" id="paletteList"></div>
   </div>
 </div>
 
 <!-- AI CHATBOT -->
-<button class="chatbot-fab" id="chatbotFab" title="Ask Gigly AI">
+<button class="chatbot-fab" id="chatbotFab" title="Ask UniGig AI">
   <svg class="fab-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M12 2 L14 9 L21 11 L14 13 L12 20 L10 13 L3 11 L10 9 Z"/>
   </svg>
@@ -1050,8 +1052,8 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
       </svg>
     </div>
     <div class="chatbot-title">
-      <div class="name">Gigly AI</div>
-      <div class="status"><span class="dot"></span> Online · Always here</div>
+      <div class="name">UniGig AI</div>
+      <div class="status"><span class="dot"></span> Online · Always here to help</div>
     </div>
     <button class="chatbot-close" id="chatbotClose" aria-label="Close">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
@@ -1060,7 +1062,7 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
   <div class="chatbot-body" id="chatbotBody"></div>
   <div class="chatbot-suggestions" id="chatbotSuggestions"></div>
   <form class="chatbot-input" id="chatbotForm">
-    <input type="text" id="chatbotInput" placeholder="Ask me anything about Gigly…" autocomplete="off" />
+    <input type="text" id="chatbotInput" placeholder="Ask me anything about UniGig…" autocomplete="off" />
     <button type="submit" aria-label="Send">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
     </button>
@@ -1078,37 +1080,37 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 0 28px 
 /* =========================================================
    DATA LAYER
    ========================================================= */
-const DB_KEY = 'gigly_db_v6';
-const THEME_KEY = 'gigly_theme';
-const SESSION_KEY = 'gigly_session';
+const DB_KEY = 'unigig_db_v1';
+const THEME_KEY = 'unigig_theme';
+const SESSION_KEY = 'unigig_session';
 
-const CATEGORIES = ['Design','Development','Writing','Video','Music','Marketing'];
+const CATEGORIES = ['Computer Science','Mathematics','Science','Writing','Business','Languages'];
 const CATEGORY_GRADIENTS = {
-  Design:['#8b5cf6','#ec4899'], Development:['#3b82f6','#06b6d4'], Writing:['#fb923c','#fbbf24'],
-  Video:['#ec4899','#f43f5e'], Music:['#8b5cf6','#6366f1'], Marketing:['#10b981','#059669'],
+  'Computer Science':['#0ea5e9','#38bdf8'], Mathematics:['#14b8a6','#0d9488'], Science:['#3b82f6','#06b6d4'], Writing:['#f59e0b','#fbbf24'],
+  Business:['#8b5cf6','#6366f1'], Languages:['#ec4899','#f43f5e'],
 };
 const AVATAR_COLORS = ['#8b5cf6','#ec4899','#3b82f6','#fb923c','#10b981','#fbbf24','#06b6d4','#f43f5e','#6366f1'];
 
 const SEED_USERS = [
-  { id:'u_aarav', name:'Aarav Mehta',  role:'creator', verified:true,  tagline:'Logo & brand designer · 4+ years', completed:47, responseHrs:1.5, onTimePct:98 },
-  { id:'u_priya', name:'Priya Sharma', role:'client',  verified:true,  tagline:'Founder, Chai & Co.' },
-  { id:'u_rohan', name:'Rohan Iyer',   role:'client',  verified:false, tagline:'Podcast host' },
-  { id:'u_neha',  name:'Neha Kapoor',  role:'creator', verified:true,  tagline:'Full-stack dev & video editor', completed:31, responseHrs:2.5, onTimePct:96 },
+  { id:'u_aarav', name:'Aarav Mehta',  role:'creator', verified:true,  tagline:'CS Major · Tutoring DSA & Web Dev', completed:47, responseHrs:1.5, onTimePct:98 },
+  { id:'u_priya', name:'Priya Sharma', role:'client',  verified:true,  tagline:'Freshman, struggling with Calculus' },
+  { id:'u_rohan', name:'Rohan Iyer',   role:'client',  verified:false, tagline:'Business Major' },
+  { id:'u_neha',  name:'Neha Kapoor',  role:'creator', verified:true,  tagline:'Math & Physics Tutor', completed:31, responseHrs:2.5, onTimePct:96 },
 ];
 
 const SEED_GIGS = [
-  { id:'g1', creatorId:'u_aarav', title:'I will design a modern minimalist logo', category:'Design', rate:1500, description:'Clean, scalable logo with 2 revisions and all source files (SVG, PNG, AI). Delivered in 3 days.', createdAt: Date.now()-1000*60*60*2, hasVideo:true },
-  { id:'g2', creatorId:'u_neha',  title:'I will build a responsive landing page',   category:'Development', rate:3500, description:'Mobile-first landing page using HTML/CSS/JS. Contact form, smooth scroll, animations.', createdAt: Date.now()-1000*60*60*8, hasVideo:false },
-  { id:'g3', creatorId:'u_aarav', title:'I will write SEO blog articles', category:'Writing', rate:800, description:'Well-researched, plagiarism-free 1000-word articles optimised for search engines.', createdAt: Date.now()-1000*60*60*20, hasVideo:false },
-  { id:'g4', creatorId:'u_neha',  title:'I will edit your YouTube video', category:'Video', rate:2000, description:'Cuts, transitions, colour grading, captions and background music. Up to 10 minutes.', createdAt: Date.now()-1000*60*60*40, hasVideo:true },
-  { id:'g5', creatorId:'u_aarav', title:'I will compose original background music', category:'Music', rate:2500, description:'Custom royalty-free track for your video, podcast or game. Any mood, up to 3 minutes.', createdAt: Date.now()-1000*60*60*60, hasVideo:false },
-  { id:'g6', creatorId:'u_neha',  title:'I will run your social media ad campaign', category:'Marketing', rate:4000, description:'Full campaign setup on Instagram and Facebook with audience targeting and weekly reports.', createdAt: Date.now()-1000*60*60*90, hasVideo:false },
+  { id:'g1', creatorId:'u_aarav', title:'I will tutor you in Data Structures & Algorithms', category:'Computer Science', rate:500, description:'Clear, step-by-step explanations for assignments and midterms. Includes practice problems.', createdAt: Date.now()-1000*60*60*2, hasVideo:true },
+  { id:'g2', creatorId:'u_neha',  title:'I will help you ace Calculus 1 and 2',   category:'Mathematics', rate:400, description:'We will go through past papers, limits, derivatives, and integrals together.', createdAt: Date.now()-1000*60*60*8, hasVideo:false },
+  { id:'g3', creatorId:'u_aarav', title:'I will build a responsive HTML/CSS project with you', category:'Computer Science', rate:600, description:'Learn by doing. I will guide you in building a landing page or portfolio.', createdAt: Date.now()-1000*60*60*20, hasVideo:false },
+  { id:'g4', creatorId:'u_neha',  title:'I will proofread and edit your English essays', category:'Writing', rate:250, description:'Grammar check, flow improvement, and structural feedback to get you an A.', createdAt: Date.now()-1000*60*60*40, hasVideo:true },
+  { id:'g5', creatorId:'u_aarav', title:'I will teach you the basics of Financial Accounting', category:'Business', rate:450, description:'Debits, credits, balance sheets, and income statements made simple.', createdAt: Date.now()-1000*60*60*60, hasVideo:false },
+  { id:'g6', creatorId:'u_neha',  title:'Conversational Spanish practice partner', category:'Languages', rate:300, description:'Let us chat in Spanish to improve your fluency. Beginners welcome!', createdAt: Date.now()-1000*60*60*90, hasVideo:false },
 ];
 
 const SEED_REVIEWS = [
-  { id:'r1', gigId:'g1', reviewerId:'u_priya', rating:5, text:'Aarav nailed the brief in the first draft. Will definitely book again.', createdAt: Date.now()-1000*60*60*24*3, verified:true },
-  { id:'r2', gigId:'g1', reviewerId:'u_rohan', rating:5, text:'Fast, professional, and the logo looks incredible on our merch.', createdAt: Date.now()-1000*60*60*24*8, verified:true },
-  { id:'r3', gigId:'g2', reviewerId:'u_priya', rating:4, text:'Good work, took a day longer than promised but communication was great.', createdAt: Date.now()-1000*60*60*24*5, verified:true },
+  { id:'r1', gigId:'g1', reviewerId:'u_priya', rating:5, text:'Aarav explained recursion so well! I finally passed my midterm.', createdAt: Date.now()-1000*60*60*24*3, verified:true },
+  { id:'r2', gigId:'g1', reviewerId:'u_rohan', rating:5, text:'Super patient and knew his stuff. Highly recommend.', createdAt: Date.now()-1000*60*60*24*8, verified:true },
+  { id:'r3', gigId:'g2', reviewerId:'u_priya', rating:4, text:'Great help with Calculus, took a day to reply initially but the session was great.', createdAt: Date.now()-1000*60*60*24*5, verified:true },
 ];
 
 function loadDB() {
@@ -1160,303 +1162,99 @@ function gigStats(gigId) {
   const avg = rs.reduce((s,r) => s + r.rating, 0) / rs.length;
   return { avg: Math.round(avg*10)/10, count: rs.length };
 }
-function creatorStats(creatorId) {
-  const gigIds = DB.gigs.filter(g => g.creatorId === creatorId).map(g => g.id);
-  const rs = DB.reviews.filter(r => gigIds.includes(r.gigId));
-  const avg = rs.length ? rs.reduce((s,r)=>s+r.rating,0)/rs.length : 0;
-  return { avg: Math.round(avg*10)/10, count: rs.length, gigs: gigIds.length };
-}
-function creatorBadge(user) {
-  if (!user || user.role !== 'creator') return '';
-  const stats = creatorStats(user.id);
-  if (stats.avg >= 4.8 && stats.count >= 3) return 'top-rated';
-  if (stats.count === 0) return 'rising';
-  if (user.verified) return 'verified';
-  return '';
-}
 
-let toastTimer;
-function showToast(msg, type='success', undoFn=null) {
-  const t = $('#toast');
-  $('#toastText').textContent = msg;
-  $('#toastIcon').textContent = type==='error' ? '!' : type==='info' ? 'i' : '✓';
-  t.className = 'toast ' + type;
-  const ub = $('#toastUndo');
-  if (undoFn) { ub.style.display='inline-block'; ub.onclick = () => { undoFn(); t.classList.remove('show'); }; }
-  else { ub.style.display='none'; }
-  requestAnimationFrame(() => t.classList.add('show'));
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), undoFn ? 5500 : 2800);
-}
+/* =========================================================
+   MISSING UI & ANIMATION LOGIC (RESTORED)
+   ========================================================= */
 
-/* AI LOGIC */
-function aiMatch(query) {
-  const q = query.toLowerCase();
-  const words = q.split(/\s+/).filter(w => w.length > 2);
-  let priceMax = null;
-  const priceMatch = q.match(/(?:under|below|less than|max|upto|up to|within)\s*₹?\s*(\d+)/);
-  if (priceMatch) priceMax = Number(priceMatch[1]);
-  const rupeeMatch = q.match(/₹\s*(\d+)/);
-  if (!priceMax && rupeeMatch) priceMax = Number(rupeeMatch[1]);
-
-  const catMap = {
-    Design:['logo','design','branding','poster','cover','banner','illustration','ui','ux','figma','art'],
-    Development:['website','web','landing','app','code','develop','program','build','frontend','backend','react','html'],
-    Writing:['write','article','blog','copy','content','seo','essay','story','post'],
-    Video:['video','edit','youtube','reel','short','vlog','tiktok','movie'],
-    Music:['music','song','track','audio','beat','sound','compose','jingle'],
-    Marketing:['marketing','ads','campaign','social','instagram','facebook','promo','growth'],
-  };
-  let detectedCat = null, catScore = 0;
-  for (const [cat, kws] of Object.entries(catMap)) {
-    const score = kws.filter(k => q.includes(k)).length;
-    if (score > catScore) { catScore = score; detectedCat = cat; }
-  }
-  const scored = DB.gigs.map(g => {
-    let score = 0;
-    const text = (g.title + ' ' + g.description + ' ' + g.category).toLowerCase();
-    words.forEach(w => { if (text.includes(w)) score += 3; });
-    if (detectedCat && g.category === detectedCat) score += 5;
-    const stats = gigStats(g.id);
-    if (stats.avg >= 4.5) score += 2;
-    if (priceMax && g.rate <= priceMax) score += 4;
-    else if (priceMax && g.rate > priceMax * 1.5) score -= 3;
-    return { gig: g, score };
-  }).filter(x => x.score > 0).sort((a,b) => b.score - a.score).slice(0, 3);
-  return { detectedCat, priceMax, gigs: scored };
-}
-function aiPriceSuggest(category, description, title) {
-  const text = (title + ' ' + description).toLowerCase();
-  const baseRanges = { Design:[800,5000], Development:[1500,15000], Writing:[400,3000], Video:[800,8000], Music:[1000,6000], Marketing:[2000,12000] };
-  let [lo, hi] = baseRanges[category] || [500, 5000];
-  let complexity = 1.0;
-  const premium = ['revision','unlimited','premium','professional','custom','animated','complex','advanced','full','complete'];
-  const basic = ['simple','basic','quick','small','short','minimal','single'];
-  premium.forEach(w => { if (text.includes(w)) complexity += 0.12; });
-  basic.forEach(w => { if (text.includes(w)) complexity -= 0.1; });
-  const wordCount = description.split(/\s+/).length;
-  if (wordCount > 30) complexity += 0.1;
-  complexity = Math.max(0.6, Math.min(1.8, complexity));
-  const suggestLo = Math.round(lo * complexity / 100) * 100;
-  const suggestHi = Math.round(hi * complexity / 100) * 100;
-  const mid = Math.round((suggestLo + suggestHi) / 2 / 100) * 100;
-  return { lo: suggestLo, hi: suggestHi, mid, complexity };
-}
-function aiDraftMessage(gig) {
-  const c = gig.category.toLowerCase();
-  const drafts = {
-    design: `Hi! I'd love to work with you on this. I'm a small business owner and need a clean, modern design that works across print and digital. Happy to share references and get started right away. What's your typical turnaround?`,
-    development: `Hi! I'm interested in this gig. I have a project in mind and need someone who can build fast and clean. I can share specs and references. When can you start?`,
-    writing: `Hi! I need quality content for my project. I liked your style and think we'd work well together. Happy to share topics and requirements. What's your process?`,
-    video: `Hi! I saw your gig and I'd love your help with a video edit. I have raw footage ready and can share specifics. What's your typical delivery time?`,
-    music: `Hi! I'm looking for an original track. I loved your samples and would love to work together. Can you share your process and timelines?`,
-    marketing: `Hi! I need help with my marketing campaign. I liked your approach and would love to discuss scope, deliverables, and timeline. Do you have bandwidth in the next week?`,
-  };
-  return drafts[c] || `Hi! I'm interested in "${gig.title}". Can you share more about your process, deliverables, and turnaround time?`;
-}
-
-/* THEME */
-function applyTheme(t) { document.documentElement.setAttribute('data-theme', t); localStorage.setItem(THEME_KEY, t); }
-applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
-$('#themeToggle').addEventListener('click', () => {
-  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-});
-
-/* NAV */
-let previousView = 'marketplace';
-function go(view) {
-  const cur = $('.view.active')?.id.replace('view-','');
-  if (cur && cur !== 'profile') previousView = cur;
-  $$('.view').forEach(v => v.classList.remove('active'));
-  const el = $('#view-' + view);
-  if (el) el.classList.add('active');
-  $$('#tabs button').forEach(b => b.classList.toggle('active', b.dataset.view === view));
-  $$('#mobileNav button').forEach(b => b.classList.toggle('active', b.dataset.view === view));
-  if (view === 'marketplace') renderMarketplace();
-  if (view === 'dashboard')   renderDashboard();
-  if (view === 'bookings')    renderMyBookings();
-  if (view === 'messages')    renderMessages();
-  if (view === 'post')        renderPostForm();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-$('#tabs').addEventListener('click', e => { const b = e.target.closest('button[data-view]'); if (b) go(b.dataset.view); });
-$('#mobileNav').addEventListener('click', e => { const b = e.target.closest('button[data-view]'); if (b) go(b.dataset.view); });
-$('#brandHome').addEventListener('click', () => go('marketplace'));
-$('#profileBack').addEventListener('click', () => go(previousView));
-
-function renderUserSelect() {
-  $('#userSelect').innerHTML = DB.users.map(u =>
-    `<option value="${u.id}" ${u.id === CURRENT_USER_ID ? 'selected' : ''}>${u.name} — ${u.role === 'creator' ? 'Creator' : 'Client'}</option>`
-  ).join('');
-}
-$('#userSelect').addEventListener('change', e => {
-  CURRENT_USER_ID = e.target.value;
-  sessionStorage.setItem(SESSION_KEY, CURRENT_USER_ID);
-  go($('.view.active').id.replace('view-',''));
-  renderBadges();
-  showToast(`Now acting as ${userById(CURRENT_USER_ID).name.split(' ')[0]}`, 'info');
-});
-
-function renderBadges() {
-  const user = userById(CURRENT_USER_ID);
-  const isCreator = user.role === 'creator';
-  const pBadges = [$('#pendingBadge'), $('#mobilePendingBadge')];
-  const mBadges = [$('#msgBadge'), $('#mobileMsgBadge')];
-  if (isCreator) {
-    const myGigIds = DB.gigs.filter(g => g.creatorId === CURRENT_USER_ID).map(g => g.id);
-    const count = DB.bookings.filter(b => myGigIds.includes(b.gigId) && b.status === 'pending').length;
-    pBadges.forEach(b => { if (b) { b.textContent = count; b.style.display = count>0 ? 'inline-block' : 'none'; } });
-  } else pBadges.forEach(b => { if (b) b.style.display = 'none'; });
-  let unread = 0;
-  Object.values(DB.messages).forEach(thread => thread.forEach(m => { if (m.to === CURRENT_USER_ID && !m.read) unread++; }));
-  mBadges.forEach(b => { if (b) { b.textContent = unread; b.style.display = unread>0 ? 'inline-block' : 'none'; } });
-}
-
-/* AI SEARCH */
-$('#aiSearchForm').addEventListener('submit', e => {
-  e.preventDefault();
-  const q = $('#aiSearchInput').value.trim();
-  if (!q) return;
-  const result = aiMatch(q);
-  if (!result.gigs.length) {
-    $('#aiResponseBox').innerHTML = `<div class="ai-response"><div class="ai-response-head">🤖 AI Match — No direct hits</div><p>I couldn't find gigs that match "<strong>${escapeHtml(q)}</strong>". Try mentioning the category — like <em>logo, website, video, article</em>.</p></div>`;
-    return;
-  }
-  const top = result.gigs[0].gig;
-  const priceText = result.priceMax
-    ? `Your budget cap is <strong>${fmtMoney(result.priceMax)}</strong>. The best fit is <strong>${fmtMoney(top.rate)}</strong> — under budget.`
-    : `Best-fit gig is priced at <strong>${fmtMoney(top.rate)}</strong>.`;
-  $('#aiResponseBox').innerHTML = `
-    <div class="ai-response">
-      <div class="ai-response-head">🤖 AI Match — ${result.gigs.length} gig${result.gigs.length>1?'s':''} found${result.detectedCat ? ' in ' + result.detectedCat : ''}</div>
-      <p>Based on your request, here ${result.gigs.length===1?'is the strongest match':'are the strongest matches'}:</p>
-      <div class="ai-meta">${priceText}</div>
-      <div class="ai-suggestion-chips">
-        ${result.gigs.map(x => `<button class="chip" data-gig-jump="${x.gig.id}">${escapeHtml(x.gig.title.slice(0,40))} · ${fmtMoney(x.gig.rate)}</button>`).join('')}
-      </div>
-    </div>`;
-  state.search = result.gigs[0].gig.title.split(' ').slice(0, 2).join(' ');
-  state.category = 'all';
-  $('#searchInput').value = state.search;
-  renderMarketplace();
-  $$('[data-gig-jump]').forEach(b => b.addEventListener('click', () => {
-    const g = gigById(b.dataset.gigJump);
-    if (g) openBookingModal(g.id);
-  }));
-});
-
-/* MARKETPLACE */
-let state = { search: '', category: 'all', sort: 'newest' };
-
-function isRisingCreator(cid) {
-  const accepted = DB.bookings.filter(b => { const g = gigById(b.gigId); return g && g.creatorId === cid && b.status === 'accepted'; }).length;
-  return accepted === 0;
-}
-
-function getVisibleGigs() {
-  let list = [...DB.gigs];
-  if (state.category !== 'all') list = list.filter(g => g.category === state.category);
-  const q = state.search.trim().toLowerCase();
-  if (q) list = list.filter(g => g.title.toLowerCase().includes(q) || g.description.toLowerCase().includes(q) || g.category.toLowerCase().includes(q));
-  if (state.sort === 'newest')    list.sort((a,b) => b.createdAt - a.createdAt);
-  if (state.sort === 'rate-asc')  list.sort((a,b) => a.rate - b.rate);
-  if (state.sort === 'rate-desc') list.sort((a,b) => b.rate - a.rate);
-  if (state.sort === 'rating')    list.sort((a,b) => gigStats(b.id).avg - gigStats(a.id).avg);
-  return list;
-}
-
-function renderMarketplace() {
-  renderCategoryChips();
-  const gigs = getVisibleGigs();
+// 1. RENDER THE CARDS
+function renderGigs(filterCat = 'All', searchQuery = '') {
   const grid = $('#gigGrid');
-  if (!gigs.length) {
-    const filtering = state.search.trim() || state.category !== 'all';
-    grid.innerHTML = `<div class="empty" style="grid-column: 1/-1;"><div class="icon">🔍</div><h3>${filtering ? 'No gigs match' : 'No gigs yet'}</h3><p>${filtering ? 'Try clearing filters or a different keyword.' : 'Be the first to post.'}</p>${filtering ? `<button class="btn btn-ghost" onclick="resetFilters()">Clear filters</button>` : ''}</div>`;
-    return;
+  if (!grid) return;
+  
+  let filtered = DB.gigs;
+  
+  if (filterCat !== 'All') {
+    filtered = filtered.filter(g => g.category === filterCat);
   }
-  grid.innerHTML = gigs.map(g => {
-    const creator = userById(g.creatorId);
-    const [c1, c2] = CATEGORY_GRADIENTS[g.category] || ['#8b5cf6','#ec4899'];
-    const stats = gigStats(g.id);
-    const cStats = creatorStats(g.creatorId);
-    const badge = creatorBadge(creator);
-    const badgeLabel = badge === 'rising' ? 'Rising' : badge === 'top-rated' ? 'Top Rated' : badge === 'verified' ? 'Verified' : '';
-    const stars = '★'.repeat(Math.round(stats.avg)) + '☆'.repeat(5 - Math.round(stats.avg));
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    filtered = filtered.filter(g => g.title.toLowerCase().includes(q) || g.description.toLowerCase().includes(q));
+  }
+
+  grid.innerHTML = filtered.map(gig => {
+    const creator = userById(gig.creatorId);
+    const stats = gigStats(gig.id);
+    const gradient = CATEGORY_GRADIENTS[gig.category] || ['#0ea5e9', '#38bdf8'];
+    const catInitials = gig.category.substring(0, 2).toUpperCase();
+    
+    // Star rendering
+    let starsHtml = '';
+    if (stats.count > 0) {
+      starsHtml = `<div class="gig-rating"><span class="stars">${'★'.repeat(Math.round(stats.avg))}${'☆'.repeat(5 - Math.round(stats.avg))}</span> <span class="num">${stats.avg}</span> <span class="count">(${stats.count})</span></div>`;
+    } else {
+      starsHtml = `<div class="gig-rating"><span class="count">New</span></div>`;
+    }
+
     return `
-      <div class="gig-card" data-gig-id="${g.id}">
-        <div class="gig-cover" style="background: linear-gradient(135deg, ${c1}, ${c2});">
-          <div class="cover-cat">${escapeHtml(g.category.slice(0,2).toUpperCase())}</div>
-          <div class="badges">${badge ? `<span class="badge ${badge}">${badgeLabel}</span>` : '<span></span>'}${(Date.now() - g.createdAt < 1000*60*60*6) ? '<span class="badge hot">New</span>' : '<span></span>'}</div>
-          ${g.hasVideo ? `<div class="video-label">15-sec intro</div><div class="play-video" data-video="${g.id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>` : ''}
+      <div class="gig-card" data-parallax="in" onclick="openBookingModal('${gig.id}')">
+        <div class="gig-cover" style="background: linear-gradient(135deg, ${gradient[0]}, ${gradient[1]});">
+          <div class="cover-cat">${catInitials}</div>
+          <div class="badges">
+            ${creator.verified ? '<span class="badge verified">Verified</span>' : ''}
+            ${gig.hasVideo ? `<span class="badge hot">Intro</span>` : ''}
+          </div>
         </div>
         <div class="gig-body">
-          <div class="gig-cat">${escapeHtml(g.category)}</div>
-          <h3>${escapeHtml(g.title)}</h3>
-          <p class="desc">${escapeHtml(g.description)}</p>
-          <div class="gig-rating"><span class="stars">${stars}</span>${stats.count ? `<span class="num">${stats.avg}</span><span class="count">(${stats.count})</span>` : '<span class="count">New gig</span>'}</div>
-          <div class="gig-creator" data-creator="${creator.id}">
+          <div class="gig-cat">${gig.category}</div>
+          <h3>${escapeHtml(gig.title)}</h3>
+          <div class="desc">${escapeHtml(gig.description)}</div>
+          ${starsHtml}
+          <div class="gig-creator">
             ${avatarHTML(creator)}
             <div class="meta">
-              <div class="name">${escapeHtml(creator.name)} ${creator.verified ? '<span style="color:#3b82f6;">✓</span>' : ''}</div>
-              <div class="time">${cStats.count > 0 ? cStats.count + ' reviews · ' : ''}${creator.responseHrs ? 'responds in ~' + creator.responseHrs + 'h' : timeAgo(g.createdAt)}</div>
+              <div class="name">${escapeHtml(creator.name)} ${creator.verified ? '✓' : ''}</div>
+              <div class="time">Responds in ~${creator.responseHrs || 1}h</div>
             </div>
           </div>
         </div>
         <div class="gig-footer">
-          <div class="price"><div class="amt">${fmtMoney(g.rate)}</div><div class="per">fixed price</div></div>
-          <button class="btn btn-primary btn-sm" data-book="${g.id}">Book</button>
+          <div class="price">
+            <div class="amt">${fmtMoney(gig.rate)}</div>
+            <div class="per">Per Hour</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); openBookingModal('${gig.id}')">Book</button>
         </div>
-      </div>`;
+      </div>
+    `;
   }).join('');
-  grid.querySelectorAll('[data-book]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); openBookingModal(b.dataset.book); }));
-  grid.querySelectorAll('[data-video]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); $('#videoModal').classList.add('open'); }));
-  grid.querySelectorAll('[data-creator]').forEach(el => el.addEventListener('click', e => { e.stopPropagation(); openProfile(el.dataset.creator); }));
-  attachTilt();
+
+  // Re-initialize 3D Tilt for the new cards
+  init3DTilt();
 }
 
-function renderCategoryChips() {
-  const counts = {};
-  DB.gigs.forEach(g => counts[g.category] = (counts[g.category]||0) + 1);
-  const chips = [['all', DB.gigs.length], ...CATEGORIES.map(c => [c, counts[c]||0])];
-  $('#categoryChips').innerHTML = chips.map(([c,n]) => {
-    const label = c === 'all' ? 'All' : c;
-    const active = state.category === c ? 'active' : '';
-    return `<button class="chip ${active}" data-cat="${c}">${label}<span class="count">${n}</span></button>`;
-  }).join('');
-  $$('#categoryChips .chip').forEach(ch => ch.addEventListener('click', () => {
-    state.category = ch.dataset.cat;
-    renderMarketplace();
-  }));
-}
-window.resetFilters = () => { state.search=''; state.category='all'; $('#searchInput').value=''; renderMarketplace(); };
-
-let searchTimer;
-$('#searchInput').addEventListener('input', e => {
-  clearTimeout(searchTimer);
-  searchTimer = setTimeout(() => { state.search = e.target.value; renderMarketplace(); }, 120);
-});
-$('#sortSelect').addEventListener('change', e => { state.sort = e.target.value; renderMarketplace(); });
-
-/* 3D TILT */
-function attachTilt() {
-  if (window.matchMedia('(hover: none), (prefers-reduced-motion: reduce)').matches) return;
-  document.querySelectorAll('.gig-card').forEach(card => {
-    if (card._tiltAttached) return;
-    card._tiltAttached = true;
+// 2. 3D TILT ANIMATION
+function init3DTilt() {
+  const cards = document.querySelectorAll('.gig-card');
+  cards.forEach(card => {
     card.addEventListener('mousemove', e => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      const px = x / rect.width;
-      const py = y / rect.height;
-      const rx = (0.5 - py) * 16;
-      const ry = (px - 0.5) * 16;
-      card.style.setProperty('--rx', rx.toFixed(2) + 'deg');
-      card.style.setProperty('--ry', ry.toFixed(2) + 'deg');
-      card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
-      card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -10; 
+      const rotateY = ((x - centerX) / centerX) * 10;
+      
+      card.style.setProperty('--rx', `${rotateX}deg`);
+      card.style.setProperty('--ry', `${rotateY}deg`);
+      card.style.setProperty('--mx', `${x}px`);
+      card.style.setProperty('--my', `${y}px`);
       card.classList.add('tilting');
     });
+    
     card.addEventListener('mouseleave', () => {
       card.classList.remove('tilting');
       card.style.setProperty('--rx', '0deg');
@@ -1465,746 +1263,102 @@ function attachTilt() {
   });
 }
 
-/* PARALLAX */
-function applyParallax() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  document.querySelectorAll('.gig-card').forEach(card => {
-    if (card.dataset.parallax) return;
-    const rect = card.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.9) card.dataset.parallax = 'in';
-  });
-}
-window.addEventListener('scroll', applyParallax, { passive: true });
+// 3. CUSTOM CURSOR LOGIC
+function initCustomCursor() {
+  const layer = $('#cursorLayer');
+  const dot = $('#cursorDot');
+  const halo = $('#cursorHalo');
+  const label = $('#cursorLabel');
+  if (!layer) return;
 
-/* POST A GIG */
-function renderPostForm() {
-  $('#gCategory').innerHTML = `<option value="" disabled selected>Choose a category…</option>` + CATEGORIES.map(c => `<option value="${c}">${c}</option>`).join('');
-}
-$('#gDesc').addEventListener('input', e => { $('#descCount').textContent = e.target.value.length; maybeSuggestPrice(); });
-$('#gCategory').addEventListener('change', maybeSuggestPrice);
-$('#gTitle').addEventListener('input', maybeSuggestPrice);
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let haloX = mouseX;
+  let haloY = mouseY;
 
-function maybeSuggestPrice() {
-  const cat = $('#gCategory').value;
-  const desc = $('#gDesc').value.trim();
-  const title = $('#gTitle').value.trim();
-  if (!cat || desc.length < 15) { $('#priceSuggestBox').innerHTML = ''; return; }
-  const s = aiPriceSuggest(cat, desc, title);
-  $('#priceSuggestBox').innerHTML = `
-    <div class="price-suggest">
-      <div class="ps-head"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L14 9 L21 11 L14 13 L12 20 L10 13 L3 11 L10 9 Z"/></svg>AI Price Suggestion</div>
-      <div class="ps-range">${fmtMoney(s.lo)} — <span class="mid">${fmtMoney(s.mid)}</span> — ${fmtMoney(s.hi)}</div>
-      <div class="ps-why">Based on your description (${desc.split(/\s+/).length} words, complexity ${(s.complexity*100).toFixed(0)}%), similar ${cat} gigs typically sell in this range.</div>
-      <div class="ps-actions"><button type="button" class="btn btn-ghost btn-sm" data-use-price="${s.mid}">Use ₹${s.mid.toLocaleString('en-IN')}</button><button type="button" class="btn btn-ghost btn-sm" data-use-price="${s.lo}">Use lowest</button></div>
-    </div>`;
-  $$('[data-use-price]').forEach(b => b.addEventListener('click', () => { $('#gRate').value = b.dataset.usePrice; }));
-}
-
-$('#gigForm').addEventListener('submit', e => {
-  e.preventDefault();
-  const title = $('#gTitle').value.trim();
-  const category = $('#gCategory').value;
-  const rate = Number($('#gRate').value);
-  const description = $('#gDesc').value.trim();
-  const hasVideo = $('#gVideo').value.trim() !== '';
-  if (!title || !category || !rate || !description) { showToast('Please fill all required fields', 'error'); return; }
-  const gig = { id: uid('g'), creatorId: CURRENT_USER_ID, title, category, rate, description, hasVideo, createdAt: Date.now() };
-  DB.gigs.push(gig);
-  saveDB();
-  $('#gigForm').reset();
-  $('#descCount').textContent = '0';
-  $('#priceSuggestBox').innerHTML = '';
-  showToast('Gig published!');
-  state.sort='newest'; state.category='all'; state.search=''; $('#searchInput').value='';
-  go('marketplace');
-});
-
-/* BOOKING */
-function openBookingModal(gigId) {
-  const g = gigById(gigId); if (!g) return;
-  const creator = userById(g.creatorId);
-  $('#modalGigId').value = gigId;
-  $('#modalSummary').innerHTML = `
-    <div class="row"><span class="k">Gig</span><span class="v">${escapeHtml(g.title)}</span></div>
-    <div class="row"><span class="k">Creator</span><span class="v">${escapeHtml(creator.name)} ${creator.verified?'✓':''}</span></div>
-    <div class="row"><span class="k">Price</span><span class="v" style="color:var(--green);">${fmtMoney(g.rate)}</span></div>
-    <div class="row"><span class="k">Escrow</span><span class="v" style="color:var(--cyan);">50% / 50% milestones</span></div>`;
-  const me = userById(CURRENT_USER_ID);
-  $('#bName').value = me.role === 'client' ? me.name : '';
-  $('#bMessage').value = '';
-  $('#msgCount').textContent = '0';
-  $('#bookingModal').classList.add('open');
-}
-
-$('#aiDraftBtn').addEventListener('click', () => {
-  const g = gigById($('#modalGigId').value);
-  if (!g) return;
-  $('#bMessage').value = aiDraftMessage(g);
-  $('#msgCount').textContent = $('#bMessage').value.length;
-  showToast('AI drafted your message', 'info');
-});
-
-$('#bMessage').addEventListener('input', e => { $('#msgCount').textContent = e.target.value.length; });
-
-$('#bookingForm').addEventListener('submit', e => {
-  e.preventDefault();
-  const gigId = $('#modalGigId').value;
-  const name = $('#bName').value.trim();
-  const message = $('#bMessage').value.trim();
-  if (!gigId || !name || !message) return;
-  const g = gigById(gigId); if (!g) return;
-  const booking = { id: uid('b'), gigId, clientId: CURRENT_USER_ID, clientName: name, message, status: 'pending', escrow: 'none', createdAt: Date.now() };
-  DB.bookings.push(booking);
-  DB.messages[booking.id] = [{ id: uid('m'), from: CURRENT_USER_ID, to: g.creatorId, text: message, at: Date.now(), read: false }];
-  saveDB();
-  closeAllModals();
-  $('#confirmText').innerHTML = `Your request for <strong>${escapeHtml(g.title)}</strong> was sent to <strong>${escapeHtml(userById(g.creatorId).name)}</strong>.<br>You'll be notified when they respond.`;
-  $('#confirmModal').classList.add('open');
-  renderBadges();
-});
-
-$('#confirmClose').addEventListener('click', () => { $('#confirmModal').classList.remove('open'); go('marketplace'); });
-$('#confirmViewBookings').addEventListener('click', () => { $('#confirmModal').classList.remove('open'); go('bookings'); });
-
-/* DASHBOARD */
-function renderDashboard() {
-  const user = userById(CURRENT_USER_ID);
-  if (user.role !== 'creator') {
-    $('#creatorStats').innerHTML = '';
-    $('#achievementsWrap').innerHTML = '';
-    $('#incomingBookings').innerHTML = `<div class="empty"><div class="icon">🎭</div><h3>You're browsing as a client</h3><p>Switch to a creator to see their dashboard.</p></div>`;
-    return;
-  }
-  const myGigs = DB.gigs.filter(g => g.creatorId === CURRENT_USER_ID);
-  const myGigIds = myGigs.map(g => g.id);
-  const incoming = DB.bookings.filter(b => myGigIds.includes(b.gigId)).sort((a,b) => b.createdAt - a.createdAt);
-  const pending = incoming.filter(b => b.status === 'pending').length;
-  const accepted = incoming.filter(b => b.status === 'accepted').length;
-  const completed = incoming.filter(b => b.status === 'completed').length;
-  const earned = incoming.filter(b => ['completed','delivered'].includes(b.status)).reduce((s,b) => s + (gigById(b.gigId)?.rate || 0), 0);
-  const cStats = creatorStats(CURRENT_USER_ID);
-
-  $('#creatorStats').innerHTML = `
-    <div class="stat-card purple"><div class="stat-num">${myGigs.length}</div><div class="stat-lbl">Live gigs</div></div>
-    <div class="stat-card yellow"><div class="stat-num">${pending}</div><div class="stat-lbl">Pending</div></div>
-    <div class="stat-card green"><div class="stat-num">${completed}</div><div class="stat-lbl">Completed</div></div>
-    <div class="stat-card green"><div class="stat-num">${fmtMoney(earned)}</div><div class="stat-lbl">Earned</div></div>
-    <div class="stat-card cyan"><div class="stat-num">${cStats.avg || '—'}</div><div class="stat-lbl">Rating (${cStats.count})</div></div>`;
-
-  const achs = [
-    { emoji:'🌱', name:'First gig', earned: myGigs.length >= 1 },
-    { emoji:'🎯', name:'First booking', earned: accepted >= 1 },
-    { emoji:'💰', name:'₹5K earned', earned: earned >= 5000 },
-    { emoji:'🏆', name:'₹10K earned', earned: earned >= 10000 },
-    { emoji:'⭐', name:'5-star reviewed', earned: cStats.avg >= 4.8 && cStats.count >= 2 },
-  ];
-  $('#achievementsWrap').innerHTML = `<div style="display:flex; gap:8px; flex-wrap:wrap; padding: 12px 0 4px;">${achs.map(a => `<span style="display:inline-flex; align-items:center; gap:6px; padding: 7px 13px; border-radius:999px; background:var(--panel-2); border:1px solid ${a.earned?'var(--accent)':'var(--border)'}; font-size:12px; font-weight:700; color:${a.earned?'var(--accent-3)':'var(--text-dim)'};">${a.emoji} ${a.name}</span>`).join('')}</div>`;
-
-  if (!incoming.length) {
-    $('#incomingBookings').innerHTML = `<div class="empty"><div class="icon">📭</div><h3>No bookings yet</h3><p>Publish a gig to start receiving requests.</p><button class="btn btn-primary" onclick="go('post')">Post a gig</button></div>`;
-    return;
-  }
-  $('#incomingBookings').innerHTML = incoming.map(b => bookingCardHTML(b, true)).join('');
-  attachBookingListeners($('#incomingBookings'));
-}
-
-/* BOOKING CARD */
-function escrowHTML(booking) {
-  const step = (label, state) => {
-    const cls = state === 'done' ? 'done' : state === 'active' ? 'active' : '';
-    const dot = state === 'done' ? '✓' : state === 'active' ? '●' : '○';
-    return `<div class="escrow-step ${cls}"><span class="dot">${dot}</span>${label}</div>`;
-  };
-  const s = booking.status;
-  if (s === 'declined') return `<div class="escrow-bar" style="opacity:0.5;"><div class="escrow-step"><span class="dot">✕</span>Request declined</div></div>`;
-  if (s === 'pending') return `<div class="escrow-bar">${step('Request','active')}<span class="line"></span>${step('Accept','')}<span class="line"></span>${step('Escrow 50%','')}<span class="line"></span>${step('Deliver','')}<span class="line"></span>${step('Release','')}</div>`;
-  if (s === 'accepted') return `<div class="escrow-bar">${step('Request','done')}<span class="line done"></span>${step('Accepted','done')}<span class="line done"></span>${step('Escrow 50%','active')}<span class="line"></span>${step('Deliver','')}<span class="line"></span>${step('Release','')}</div>`;
-  if (s === 'delivered') return `<div class="escrow-bar">${step('Request','done')}<span class="line done"></span>${step('Accepted','done')}<span class="line done"></span>${step('Escrow','done')}<span class="line done"></span>${step('Delivered','done')}<span class="line"></span>${step('Awaiting release','active')}</div>`;
-  if (s === 'completed') return `<div class="escrow-bar">${step('Request','done')}<span class="line done"></span>${step('Accepted','done')}<span class="line done"></span>${step('Escrow','done')}<span class="line done"></span>${step('Delivered','done')}<span class="line done"></span>${step('Paid out','done')}</div>`;
-  return '';
-}
-
-function bookingCardHTML(b, isCreatorView) {
-  const g = gigById(b.gigId);
-  const otherId = isCreatorView ? b.clientId : (g ? g.creatorId : null);
-  const other = userById(otherId);
-  const title = g ? g.title : 'Deleted gig';
-  const statusLabels = { pending:'Pending', accepted:'Accepted', declined:'Declined', delivered:'Delivered', completed:'Completed' };
-  const unread = (DB.messages[b.id] || []).filter(m => m.to === CURRENT_USER_ID && !m.read).length;
-  let actions = '';
-  if (b.status === 'pending' && isCreatorView) {
-    actions = `<button class="btn btn-success btn-sm" data-accept="${b.id}">Accept</button><button class="btn btn-danger btn-sm" data-decline="${b.id}">Decline</button>`;
-  } else if (b.status === 'accepted' && isCreatorView) {
-    actions = `<button class="btn btn-primary btn-sm" data-deliver="${b.id}">Mark Delivered</button>`;
-  } else if (b.status === 'accepted' && !isCreatorView) {
-    actions = `<span style="font-size:11.5px; color: var(--cyan); font-weight: 700;">50% held in escrow</span>`;
-  } else if (b.status === 'delivered' && !isCreatorView) {
-    actions = `<button class="btn btn-success btn-sm" data-release="${b.id}">Release Payment</button>`;
-  } else if (b.status === 'completed' && !isCreatorView) {
-    const hasReview = DB.reviews.some(r => r.bookingId === b.id);
-    actions = hasReview ? `<span style="font-size:11.5px; color: var(--green); font-weight: 700;">✓ Reviewed</span>` : `<button class="btn btn-ghost btn-sm" data-review="${b.id}">★ Leave Review</button>`;
-  }
-  const extra = b.status === 'declined' && b.reason ? `<div class="reason">Reason: ${escapeHtml(b.reason)}</div>` : '';
-  return `
-    <div class="booking-card">
-      <div class="booking-main">
-        ${avatarHTML(other, 'lg')}
-        <div class="info">
-          <h4>${escapeHtml(title)}</h4>
-          <div class="meta"><span>${isCreatorView ? '👤' : 'by'} ${escapeHtml(other ? other.name : 'Unknown')}</span><span class="dot">·</span><span>${timeAgo(b.createdAt)}</span>${g ? `<span class="dot">·</span><span style="color:var(--green);font-weight:600;">${fmtMoney(g.rate)}</span>` : ''}</div>
-          <div class="msg">"${escapeHtml(b.message)}"</div>
-          ${extra}
-          ${escrowHTML(b)}
-        </div>
-      </div>
-      <div class="booking-actions">
-        <span class="status ${b.status}">${statusLabels[b.status] || b.status}</span>
-        <button class="btn btn-ghost btn-sm" data-chat="${b.id}">💬 Chat${unread ? ` <span style="background:var(--red); color:white; padding:1px 6px; border-radius:999px; font-size:10px; margin-left:4px;">${unread}</span>` : ''}</button>
-        ${actions}
-      </div>
-    </div>`;
-}
-
-function attachBookingListeners(root) {
-  root.querySelectorAll('[data-accept]').forEach(b => b.addEventListener('click', () => handleAccept(b.dataset.accept)));
-  root.querySelectorAll('[data-decline]').forEach(b => b.addEventListener('click', () => handleDecline(b.dataset.decline)));
-  root.querySelectorAll('[data-deliver]').forEach(b => b.addEventListener('click', () => handleDeliver(b.dataset.deliver)));
-  root.querySelectorAll('[data-release]').forEach(b => b.addEventListener('click', () => handleRelease(b.dataset.release)));
-  root.querySelectorAll('[data-review]').forEach(b => b.addEventListener('click', () => openReview(b.dataset.review)));
-  root.querySelectorAll('[data-chat]').forEach(b => b.addEventListener('click', () => openChat(b.dataset.chat)));
-}
-
-function coinBurst(x, y) {
-  const count = 16;
-  for (let i = 0; i < count; i++) {
-    const coin = document.createElement('div');
-    coin.className = 'coin-particle';
-    coin.textContent = '₹';
-    coin.style.left = x + 'px';
-    coin.style.top = y + 'px';
-    const angle = (Math.PI * 2 * i) / count + Math.random() * 0.3;
-    const dist = 80 + Math.random() * 180;
-    coin.style.setProperty('--dx', (Math.cos(angle) * dist).toFixed(1) + 'px');
-    coin.style.setProperty('--dy', (Math.sin(angle) * dist * 0.6 - 40).toFixed(1) + 'px');
-    document.body.appendChild(coin);
-    setTimeout(() => coin.remove(), 1500);
-  }
-}
-
-function handleAccept(id) {
-  const b = DB.bookings.find(x => x.id === id);
-  if (!b || b.status !== 'pending') return;
-  const btn = document.querySelector(`[data-accept="${id}"]`);
-  if (btn) {
-    const rect = btn.getBoundingClientRect();
-    coinBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
-  }
-  const prev = JSON.parse(JSON.stringify(DB.bookings));
-  b.status = 'accepted'; b.decidedAt = Date.now(); b.escrow = 'held';
-  let autoDeclined = 0;
-  DB.bookings.forEach(o => { if (o.id !== b.id && o.gigId === b.gigId && o.status === 'pending') { o.status = 'declined'; o.reason = 'Gig was filled by another booking.'; autoDeclined++; } });
-  saveDB();
-  showToast(autoDeclined ? `Accepted. ${autoDeclined} other${autoDeclined>1?'s':''} auto-declined.` : 'Booking accepted. 50% moved to escrow.', 'success', () => { DB.bookings = prev; saveDB(); renderDashboard(); renderBadges(); showToast('Reverted.'); });
-  renderDashboard(); renderBadges();
-}
-function handleDecline(id) {
-  const b = DB.bookings.find(x => x.id === id);
-  if (!b || b.status !== 'pending') return;
-  const prev = JSON.parse(JSON.stringify(DB.bookings));
-  b.status = 'declined'; b.decidedAt = Date.now();
-  saveDB();
-  showToast('Booking declined.', 'info', () => { DB.bookings = prev; saveDB(); renderDashboard(); renderBadges(); showToast('Reverted.'); });
-  renderDashboard(); renderBadges();
-}
-function handleDeliver(id) {
-  const b = DB.bookings.find(x => x.id === id);
-  if (!b || b.status !== 'accepted') return;
-  b.status = 'delivered'; b.deliveredAt = Date.now();
-  saveDB();
-  showToast('Marked delivered. Client notified.', 'success');
-  renderDashboard();
-}
-function handleRelease(id) {
-  const b = DB.bookings.find(x => x.id === id);
-  if (!b || b.status !== 'delivered') return;
-  b.status = 'completed'; b.completedAt = Date.now();
-  saveDB();
-  showToast('Payment released. 🎉', 'success');
-  renderMyBookings();
-}
-
-/* MY BOOKINGS */
-function renderMyBookings() {
-  const mine = DB.bookings.filter(b => b.clientId === CURRENT_USER_ID).sort((a,b) => b.createdAt - a.createdAt);
-  const list = $('#myBookings');
-  if (!mine.length) {
-    list.innerHTML = `<div class="empty"><div class="icon">🎫</div><h3>No bookings yet</h3><p>Browse the marketplace to find a creator and book them.</p><button class="btn btn-primary" onclick="go('marketplace')">Browse gigs</button></div>`;
-    return;
-  }
-  list.innerHTML = mine.map(b => bookingCardHTML(b, false)).join('');
-  attachBookingListeners(list);
-}
-
-/* MESSAGES */
-function renderMessages() {
-  const mine = DB.bookings.filter(b => b.clientId === CURRENT_USER_ID || (gigById(b.gigId)?.creatorId === CURRENT_USER_ID));
-  mine.sort((a,b) => b.createdAt - a.createdAt);
-  const list = $('#messagesList');
-  if (!mine.length) {
-    list.innerHTML = `<div class="empty"><div class="icon">💬</div><h3>No conversations yet</h3><p>Once you book or receive a booking, the chat opens here.</p></div>`;
-    return;
-  }
-  list.innerHTML = mine.map(b => {
-    const g = gigById(b.gigId);
-    const isCreator = g && g.creatorId === CURRENT_USER_ID;
-    const other = isCreator ? userById(b.clientId) : userById(g.creatorId);
-    const thread = DB.messages[b.id] || [];
-    const last = thread[thread.length - 1];
-    const unread = thread.filter(m => m.to === CURRENT_USER_ID && !m.read).length;
-    return `
-      <div class="booking-card" data-chat="${b.id}" style="cursor:pointer;">
-        <div class="booking-main">
-          ${avatarHTML(other, 'lg')}
-          <div class="info">
-            <h4>${escapeHtml(other?.name || 'Unknown')} ${unread ? `<span style="background:var(--red); color:white; padding:1px 8px; border-radius:999px; font-size:10.5px; margin-left:6px;">${unread} new</span>` : ''}</h4>
-            <div class="meta"><span>${escapeHtml(g?.title || '')}</span></div>
-            <div class="msg">${last ? escapeHtml((last.from === CURRENT_USER_ID ? 'You: ' : '') + last.text.slice(0, 80)) : 'No messages yet'}</div>
-          </div>
-        </div>
-        <div class="booking-actions"><span class="status ${b.status}">${b.status}</span></div>
-      </div>`;
-  }).join('');
-  list.querySelectorAll('[data-chat]').forEach(el => el.addEventListener('click', () => openChat(el.dataset.chat)));
-}
-
-/* CHAT */
-let activeChatBookingId = null;
-let chatPollTimer = null;
-
-function openChat(bookingId) {
-  activeChatBookingId = bookingId;
-  const b = DB.bookings.find(x => x.id === bookingId);
-  if (!b) return;
-  const g = gigById(b.gigId);
-  const isCreator = g && g.creatorId === CURRENT_USER_ID;
-  const other = isCreator ? userById(b.clientId) : userById(g.creatorId);
-  let changed = false;
-  (DB.messages[bookingId] || []).forEach(m => { if (m.to === CURRENT_USER_ID && !m.read) { m.read = true; changed = true; } });
-  if (changed) saveDB();
-  $('#chatHead').innerHTML = `${avatarHTML(other, 'lg')}<div style="flex:1; min-width:0;"><div class="name">${escapeHtml(other?.name || 'Unknown')}</div><div class="sub">${escapeHtml(g?.title || '')}</div></div><div class="online">Online</div>`;
-  renderChatThread();
-  $('#chatModal').classList.add('open');
-  setTimeout(() => $('#chatInput').focus(), 200);
-  renderBadges();
-  clearInterval(chatPollTimer);
-  chatPollTimer = setInterval(() => { if (activeChatBookingId) { renderChatThread(); renderBadges(); } }, 1500);
-}
-
-function renderChatThread() {
-  if (!activeChatBookingId) return;
-  const thread = DB.messages[activeChatBookingId] || [];
-  $('#chatBody').innerHTML = thread.map(m => {
-    const mine = m.from === CURRENT_USER_ID;
-    const readMark = mine && m.read ? '<span class="read">✓✓</span>' : mine ? '✓' : '';
-    return `<div class="chat-msg ${mine ? 'me' : 'them'}"><div>${escapeHtml(m.text)}</div><div class="time">${new Date(m.at).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})} ${readMark}</div></div>`;
-  }).join('');
-  const body = $('#chatBody');
-  body.scrollTop = body.scrollHeight;
-}
-
-$('#chatSend').addEventListener('click', sendChat);
-$('#chatInput').addEventListener('keydown', e => { if (e.key === 'Enter') sendChat(); });
-
-function sendChat() {
-  const text = $('#chatInput').value.trim();
-  if (!text || !activeChatBookingId) return;
-  const b = DB.bookings.find(x => x.id === activeChatBookingId);
-  if (!b) return;
-  const g = gigById(b.gigId);
-  const isCreator = g && g.creatorId === CURRENT_USER_ID;
-  const to = isCreator ? b.clientId : g.creatorId;
-  if (!DB.messages[activeChatBookingId]) DB.messages[activeChatBookingId] = [];
-  DB.messages[activeChatBookingId].push({ id: uid('m'), from: CURRENT_USER_ID, to, text, at: Date.now(), read: false });
-  saveDB();
-  $('#chatInput').value = '';
-  renderChatThread();
-  const replyDelay = 1200 + Math.random() * 1500;
-  setTimeout(() => {
-    if (!activeChatBookingId) return;
-    const replies = ['Got it! Let me take a look and get back to you.','Sounds great — I can start right away.','Thanks! I\'ll share the first draft tomorrow.','Perfect, I\'ll keep that in mind. Anything else?','Yes, that works for me. 👍'];
-    const reply = replies[Math.floor(Math.random() * replies.length)];
-    if (!DB.messages[activeChatBookingId]) DB.messages[activeChatBookingId] = [];
-    DB.messages[activeChatBookingId].push({ id: uid('m'), from: to, to: CURRENT_USER_ID, text: reply, at: Date.now(), read: true });
-    saveDB();
-    renderChatThread();
-    renderBadges();
-  }, replyDelay);
-  $('#chatTyping').innerHTML = `<span style="opacity:0.7;">${escapeHtml(userById(to)?.name?.split(' ')[0] || 'They')} is typing</span><span class="dots"><span></span><span></span><span></span></span>`;
-  setTimeout(() => { if ($('#chatTyping')) $('#chatTyping').innerHTML = ''; }, replyDelay - 200);
-}
-
-/* REVIEWS */
-let reviewRating = 5;
-function openReview(bookingId) {
-  $('#reviewBookingId').value = bookingId;
-  reviewRating = 5;
-  updateStarPicker();
-  $('#reviewText').value = '';
-  $('#reviewModal').classList.add('open');
-}
-function updateStarPicker() {
-  $$('#starPicker span').forEach(s => {
-    s.textContent = Number(s.dataset.star) <= reviewRating ? '★' : '☆';
-    s.style.color = Number(s.dataset.star) <= reviewRating ? 'var(--yellow)' : 'var(--muted)';
-  });
-}
-$$('#starPicker span').forEach(s => s.addEventListener('click', () => { reviewRating = Number(s.dataset.star); updateStarPicker(); }));
-
-$('#reviewForm').addEventListener('submit', e => {
-  e.preventDefault();
-  const bookingId = $('#reviewBookingId').value;
-  const text = $('#reviewText').value.trim();
-  const b = DB.bookings.find(x => x.id === bookingId);
-  if (!b || !text) return;
-  DB.reviews.push({ id: uid('r'), gigId: b.gigId, bookingId, reviewerId: CURRENT_USER_ID, rating: reviewRating, text, verified: true, createdAt: Date.now() });
-  saveDB();
-  closeAllModals();
-  showToast('Review submitted! ⭐', 'success');
-  renderMyBookings();
-});
-
-/* PROFILE */
-function openProfile(userId) {
-  const u = userById(userId);
-  if (!u) return;
-  const stats = creatorStats(userId);
-  const gigs = DB.gigs.filter(g => g.creatorId === userId);
-  const reviews = DB.reviews.filter(r => gigs.some(g => g.id === r.gigId));
-  const badge = creatorBadge(u);
-  const badgeLabels = { rising:'🌱 Rising Talent', verified:'✓ Verified Creator', 'top-rated':'⭐ Top Rated' };
-  $('#profileContent').innerHTML = `
-    <div class="profile-header">
-      <div class="profile-top">
-        ${avatarHTML(u, 'xl')}
-        <div class="profile-info">
-          <h1>${escapeHtml(u.name)} ${u.verified ? '<span style="color:#3b82f6; font-size:20px;">✓</span>' : ''}</h1>
-          <div class="tagline">${escapeHtml(u.tagline || 'Creator on Gigly')}</div>
-          <div class="profile-badges">${badge ? `<span class="badge ${badge}">${badgeLabels[badge]}</span>` : ''}</div>
-          <div class="profile-stats">
-            <div class="profile-stat"><div class="num">${gigs.length}</div><div class="lbl">Live gigs</div></div>
-            <div class="profile-stat"><div class="num">${u.completed || 0}</div><div class="lbl">Completed</div></div>
-            <div class="profile-stat"><div class="num">${stats.avg || '—'} ⭐</div><div class="lbl">${stats.count} reviews</div></div>
-            <div class="profile-stat"><div class="num">~${u.responseHrs || 2}h</div><div class="lbl">Response</div></div>
-            <div class="profile-stat"><div class="num">${u.onTimePct || 95}%</div><div class="lbl">On-time</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <h2 style="font-size:18px; font-weight:800; margin-bottom:8px;">Portfolio</h2>
-    <div class="portfolio-grid">${[1,2,3,4,5,6].map(i => `<div class="portfolio-item" style="background: linear-gradient(${i*40}deg, ${AVATAR_COLORS[i % AVATAR_COLORS.length]}, ${AVATAR_COLORS[(i+3) % AVATAR_COLORS.length]});"><div class="pi-label">Project ${i}</div></div>`).join('')}</div>
-    <h2 style="font-size:18px; font-weight:800; margin: 32px 0 12px;">Gigs by ${escapeHtml(u.name.split(' ')[0])}</h2>
-    ${gigs.length ? `<div class="gig-grid">${gigs.map(g => {
-      const [c1, c2] = CATEGORY_GRADIENTS[g.category] || ['#8b5cf6','#ec4899'];
-      return `<div class="gig-card"><div class="gig-cover" style="background: linear-gradient(135deg, ${c1}, ${c2});"><div class="cover-cat">${g.category.slice(0,2).toUpperCase()}</div></div><div class="gig-body"><div class="gig-cat">${g.category}</div><h3>${escapeHtml(g.title)}</h3></div><div class="gig-footer"><div class="price"><div class="amt">${fmtMoney(g.rate)}</div></div><button class="btn btn-primary btn-sm" data-book="${g.id}">Book</button></div></div>`;
-    }).join('')}</div>` : '<p style="color:var(--muted);">No gigs yet.</p>'}
-    <h2 style="font-size:18px; font-weight:800; margin: 32px 0 12px;">Reviews (${reviews.length})</h2>
-    <div class="reviews-list">${reviews.length ? reviews.map(r => {
-      const rev = userById(r.reviewerId);
-      const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
-      return `<div class="review-card"><div class="review-head">${avatarHTML(rev)}<div><div class="name">${escapeHtml(rev?.name || 'Anonymous')}</div><div class="date">${timeAgo(r.createdAt)}</div></div>${r.verified ? '<span class="verified-tag">✓ Verified</span>' : ''}</div><div class="review-stars">${stars}</div><div class="review-text">${escapeHtml(r.text)}</div></div>`;
-    }).join('') : '<p style="color:var(--muted);">No reviews yet.</p>'}</div>`;
-  go('profile');
-  $$('#profileContent [data-book]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); openBookingModal(b.dataset.book); }));
-}
-
-/* PALETTE */
-const PALETTE_COMMANDS = [
-  { icon:'🔍', title:'Marketplace', action: () => go('marketplace'), hint:'G M' },
-  { icon:'➕', title:'Post a gig', action: () => go('post'), hint:'G P' },
-  { icon:'📥', title:'Creator Dashboard', action: () => go('dashboard'), hint:'G D' },
-  { icon:'💬', title:'Messages', action: () => go('messages'), hint:'G C' },
-  { icon:'🎫', title:'My Bookings', action: () => go('bookings'), hint:'G B' },
-  { icon:'🌗', title:'Toggle theme', action: () => $('#themeToggle').click() },
-];
-function openPalette() {
-  $('#paletteBackdrop').classList.add('open');
-  $('#paletteInput').value = '';
-  renderPaletteResults('');
-  setTimeout(() => $('#paletteInput').focus(), 100);
-}
-function renderPaletteResults(q) {
-  q = q.toLowerCase().trim();
-  const list = $('#paletteList');
-  const items = [];
-  PALETTE_COMMANDS.forEach(c => { if (!q || c.title.toLowerCase().includes(q)) items.push({ type: 'cmd', ...c }); });
-  DB.users.forEach(u => { if (!q || u.name.toLowerCase().includes(q)) items.push({ type:'user', icon:'👤', title:`Switch to ${u.name}`, action: () => {
-    CURRENT_USER_ID = u.id; sessionStorage.setItem(SESSION_KEY, u.id);
-    $('#userSelect').value = u.id; renderBadges();
-    go('marketplace'); showToast(`Now acting as ${u.name.split(' ')[0]}`);
-  }}); });
-  if (!items.length) { list.innerHTML = `<div class="palette-empty">No matches</div>`; return; }
-  list.innerHTML = items.slice(0, 8).map((it, i) => `<div class="palette-item ${i===0?'active':''}" data-idx="${i}"><div class="p-icon">${it.icon}</div><div class="p-title">${escapeHtml(it.title)}</div>${it.hint ? `<span class="p-hint">${escapeHtml(it.hint)}</span>` : ''}</div>`).join('');
-  list.querySelectorAll('.palette-item').forEach((el, i) => { el.addEventListener('click', () => { items[i].action(); $('#paletteBackdrop').classList.remove('open'); }); });
-  renderPaletteResults._items = items;
-}
-$('#paletteInput').addEventListener('input', e => renderPaletteResults(e.target.value));
-$('#paletteInput').addEventListener('keydown', e => { if (e.key === 'Enter') { const items = renderPaletteResults._items || []; if (items[0]) { items[0].action(); $('#paletteBackdrop').classList.remove('open'); } } });
-$('#paletteBtn').addEventListener('click', openPalette);
-
-/* MODAL / KEYS */
-function closeAllModals() {
-  $$('.modal-backdrop').forEach(m => m.classList.remove('open'));
-  activeChatBookingId = null;
-  clearInterval(chatPollTimer);
-}
-$$('[data-close-modal]').forEach(b => b.addEventListener('click', closeAllModals));
-$$('.modal-backdrop').forEach(bd => bd.addEventListener('click', e => { if (e.target === bd) closeAllModals(); }));
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeAllModals();
-  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openPalette(); }
-  if (e.key === '/' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) { e.preventDefault(); if (!$('.view.active').id.includes('marketplace')) go('marketplace'); setTimeout(() => $('#searchInput').focus(), 100); }
-});
-
-/* SCROLL */
-window.addEventListener('scroll', () => { $('#topbar').classList.toggle('scrolled', window.scrollY > 10); }, { passive: true });
-
-/* CURSOR */
-(function initCursor() {
-  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
-  const layer = $('#cursorLayer'), dot = $('#cursorDot'), halo = $('#cursorHalo'), label = $('#cursorLabel'), trail = $('#cursorTrail'), ripple = $('#clickRippleLayer');
-  if (!layer || !dot || !halo) return;
-  let mx = innerWidth/2, my = innerHeight/2, dx = mx, dy = my, hx = mx, hy = my, lx = mx, ly = my, st = 0, pressing = false;
-  addEventListener('mousemove', () => layer.classList.add('active'), { once: true });
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; layer.classList.add('active'); });
-  document.addEventListener('mousedown', e => { pressing = true; layer.classList.add('pressing'); rippleHere(e.clientX, e.clientY); });
-  document.addEventListener('mouseup', () => { pressing = false; layer.classList.remove('pressing'); });
-  const interactive = 'a,button,.btn,.chip,.icon-btn,select,[role="button"],[data-book],[data-accept],[data-decline],[data-chat],[data-deliver],[data-release],[data-review]';
-  const cards = '.gig-card,.booking-card,.stat-card,.hero-stat';
-  const textF = 'input,textarea';
-  const labelMap = [{ sel:'[data-book]', text:'BOOK' }, { sel:'[data-accept]', text:'ACCEPT' }, { sel:'[data-decline]', text:'DECLINE' }, { sel:'[data-chat]', text:'CHAT' }, { sel:'.gig-card', text:'VIEW' }, { sel:'.chip', text:'FILTER' }];
-  document.addEventListener('mouseover', e => {
-    const t = e.target; if (!t) return;
-    layer.classList.remove('hover-interactive','hover-card','text-mode');
-    label.classList.remove('visible');
-    if (t.matches(textF)) { layer.classList.add('text-mode'); return; }
-    for (const { sel, text } of labelMap) { if (t.matches(sel) || t.closest(sel)) { label.textContent = text; label.classList.add('visible'); break; } }
-    if (t.matches(interactive) || t.closest(interactive)) layer.classList.add('hover-interactive');
-    else if (t.matches(cards) || t.closest(cards)) layer.classList.add('hover-card');
-  });
-  document.addEventListener('mouseleave', () => { dot.classList.add('hidden'); halo.classList.add('hidden'); label.classList.remove('visible'); });
-  document.addEventListener('mouseenter', () => { dot.classList.remove('hidden'); halo.classList.remove('hidden'); });
-  function tick() {
-    dx += (mx - dx) * 0.55; dy += (my - dy) * 0.55;
-    dot.style.transform = `translate3d(${dx}px,${dy}px,0)`;
-    hx += (mx - hx) * 0.18; hy += (my - hy) * 0.18;
-    halo.style.transform = `translate3d(${hx}px,${hy}px,0)`;
-    label.style.transform = `translate3d(${hx}px,${hy}px,0)`;
-    const vx = mx - lx, vy = my - ly;
-    const sp = Math.sqrt(vx*vx + vy*vy);
-    st += sp;
-    if (st > 40 && !pressing) { st = 0; spark(mx, my, vx, vy); }
-    lx = mx; ly = my;
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-  function spark(x, y, vx, vy) {
-    const s = document.createElement('div');
-    s.className = 'cursor-spark';
-    s.style.left = (x + (Math.random()-0.5)*14) + 'px';
-    s.style.top  = (y + (Math.random()-0.5)*14) + 'px';
-    s.style.setProperty('--dx', (-vx*0.5 + (Math.random()-0.5)*20) + 'px');
-    s.style.setProperty('--dy', (-vy*0.5 + (Math.random()-0.5)*20 + 10) + 'px');
-    s.style.background = Math.random() > 0.5 ? 'var(--accent-2)' : 'var(--pink)';
-    trail.appendChild(s);
-    setTimeout(() => s.remove(), 750);
-  }
-  function rippleHere(x, y) {
-    const r1 = document.createElement('div'); r1.className = 'click-ripple'; r1.style.left = x+'px'; r1.style.top = y+'px';
-    const r2 = document.createElement('div'); r2.className = 'click-ripple secondary'; r2.style.left = x+'px'; r2.style.top = y+'px';
-    ripple.appendChild(r1); ripple.appendChild(r2);
-    setTimeout(() => { r1.remove(); r2.remove(); }, 900);
-  }
-})();
-
-/* AI CHATBOT */
-(function initChatbot() {
-  const fab = document.getElementById('chatbotFab');
-  const panel = document.getElementById('chatbotPanel');
-  const closeBtn = document.getElementById('chatbotClose');
-  const body = document.getElementById('chatbotBody');
-  const input = document.getElementById('chatbotInput');
-  const form = document.getElementById('chatbotForm');
-  const suggestionsBox = document.getElementById('chatbotSuggestions');
-  if (!fab || !panel) return;
-
-  let greeted = false;
-  let typingEl = null;
-
-  function esc(s) {
-    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
-  }
-
-  function openBot() {
-    panel.classList.add('open');
-    fab.classList.add('open');
-    if (!greeted) { greeted = true; setTimeout(() => greetUser(), 400); }
-    setTimeout(() => input.focus(), 350);
-  }
-  function closeBot() {
-    panel.classList.remove('open');
-    fab.classList.remove('open');
-  }
-
-  fab.addEventListener('click', () => panel.classList.contains('open') ? closeBot() : openBot());
-  closeBtn.addEventListener('click', closeBot);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && panel.classList.contains('open')) closeBot(); });
-
-  function addMessage(text, who = 'bot', html = false) {
-    const el = document.createElement('div');
-    el.className = 'chatbot-msg ' + who;
-    el.innerHTML = html ? text : esc(text).replace(/\n/g, '<br>');
-    body.appendChild(el);
-    body.scrollTop = body.scrollHeight;
-    return el;
-  }
-
-  function showTyping() {
-    typingEl = document.createElement('div');
-    typingEl.className = 'chatbot-msg bot typing';
-    typingEl.innerHTML = '<span></span><span></span><span></span>';
-    body.appendChild(typingEl);
-    body.scrollTop = body.scrollHeight;
-  }
-  function hideTyping() { if (typingEl) { typingEl.remove(); typingEl = null; } }
-
-  function botReply(text, html = false, chips = null) {
-    showTyping();
-    const delay = Math.min(1400, 500 + text.length * 6);
-    return new Promise(resolve => {
-      setTimeout(() => {
-        hideTyping();
-        addMessage(text, 'bot', html);
-        renderChips(chips);
-        resolve();
-      }, delay);
-    });
-  }
-
-  function renderChips(chips) {
-    if (!chips || !chips.length) { suggestionsBox.innerHTML = ''; return; }
-    suggestionsBox.innerHTML = chips.map(c => `<button type="button" class="chatbot-chip" data-chip="${esc(c)}">${esc(c)}</button>`).join('');
-    suggestionsBox.querySelectorAll('.chatbot-chip').forEach(ch => {
-      ch.addEventListener('click', () => {
-        input.value = ch.dataset.chip;
-        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-      });
-    });
-  }
-
-  function greetUser() {
-    let first = 'there', role = 'user';
-    try {
-      if (typeof userById === 'function' && typeof CURRENT_USER_ID !== 'undefined') {
-        const me = userById(CURRENT_USER_ID);
-        if (me) { first = me.name.split(' ')[0]; role = me.role; }
-      }
-    } catch(e) {}
-    addMessage(`Hi <strong>${first}</strong>! 👋 I'm <strong>Gigly AI</strong> — I can help you ${role === 'creator' ? 'post gigs, manage bookings, and price your services' : 'find creators, book gigs, and use our AI features'}. What would you like to know?`, 'bot', true);
-    renderChips(role === 'creator'
-      ? ['How do I post a gig?', 'How does price suggester work?', 'How do I accept a booking?', 'What is escrow?']
-      : ['How do I book a gig?', 'What is AI Match?', 'How does escrow work?', 'How do reviews work?']);
-  }
-
-  const KB = [
-    { keys: ['hi','hello','hey','yo','sup','namaste'], reply: "Hey! 👋 Ask me anything about Gigly — posting, booking, pricing, escrow, AI features, or reviews." },
-    { keys: ['post','publish','list','create a gig','add a gig','new gig'], reply: "To post a gig:\n1. Click <strong>Post a Gig</strong>\n2. Enter a title (start with 'I will…')\n3. Pick a category\n4. Write a description — the <strong>AI Price Suggester</strong> appears\n5. Enter your rate, optionally add a video URL\n6. Click <strong>Publish Gig</strong>", html: true },
-    { keys: ['book','hire','order','request','buy'], reply: "To book a creator:\n1. Go to <strong>Marketplace</strong>\n2. Click <strong>Book</strong> on any gig\n3. Add your name + message (or click <strong>AI Draft</strong>)\n4. Click <strong>Send Booking Request</strong>\n5. Track it in <strong>My Bookings</strong>", html: true },
-    { keys: ['ai match','ai search','smart search','match me','find gig'], reply: "<strong>AI Match</strong> is our smart search — the purple box at the top of the Marketplace. Try typing:\n\n<i>\"I need a logo for my coffee shop under ₹2000\"</i>\n\nIt ranks the best gigs, detects your budget, and suggests matches you can book in one click.", html: true },
-    { keys: ['ai draft','draft message','auto message','write message'], reply: "<strong>AI Draft</strong> writes your booking message for you. Open any gig → click <strong>Book</strong> → click <strong>AI Draft</strong> next to the message field. Edit before sending.", html: true },
-    { keys: ['price','suggest','pricing','rate','how much','cost'], reply: "Our <strong>AI Price Suggester</strong> analyzes your description and shows a suggested price range. Start typing on the Post a Gig page — the suggestion appears automatically.", html: true },
-    { keys: ['escrow','payment','money','pay','milestone','release'], reply: "We use <strong>escrow milestones</strong>:\n1. Client books\n2. Creator accepts → <strong>50% held in escrow</strong>\n3. Creator marks delivered\n4. Client releases → <strong>final 50% paid out</strong>\n\nThe 5-step bar on every booking shows where you are.", html: true },
-    { keys: ['chat','message','talk','contact','reply'], reply: "Every booking has its own <strong>chat thread</strong>. Click <strong>💬 Chat</strong> on any booking card, or open the <strong>Messages</strong> tab. You'll see typing indicators and ✓✓ read receipts.", html: true },
-    { keys: ['review','rating','star','feedback'], reply: "After a booking completes, the client can leave a <strong>review with stars</strong>. Reviews appear on the creator's profile and gig cards.", html: true },
-    { keys: ['badge','verified','top rated','rising','trust'], reply: "We have 3 tiers:\n• <strong>🌱 Rising</strong> — new creators\n• <strong>✓ Verified</strong> — ID-verified\n• <strong>⭐ Top Rated</strong> — avg 4.8★ with 3+ reviews", html: true },
-    { keys: ['portfolio','profile','past work','gallery'], reply: "Every creator has a <strong>profile page</strong> with a portfolio gallery, past gigs, ratings, and reviews. Click any creator's avatar to view it.", html: true },
-    { keys: ['video','intro video','15 sec','intro'], reply: "Creators can add a <strong>15-second intro video</strong> when posting a gig. Look for the ▶️ play button on gig cards.", html: true },
-    { keys: ['decline','reject','rejection','refuse'], reply: "When a creator declines, the client sees a <strong>red 'Declined' badge</strong>, their message, and a <strong>'Find similar gigs'</strong> button that jumps back to the marketplace filtered to the same category.", html: true },
-    { keys: ['double booking','two bookings','multiple bookings'], reply: "Multiple pending bookings can exist on one gig, but <strong>only one can be Accepted</strong>. The moment a creator accepts, all other pendings auto-decline.", html: true },
-    { keys: ['ranking','sort','order','discovery'], reply: "Default sort is <strong>newest first</strong>, with a <strong>Rising Creator boost</strong>. Clients can override via the dropdown: Newest · Top rated · Price ↑ · Price ↓", html: true },
-    { keys: ['3d','tilt','animation','card'], reply: "Gig cards have <strong>real 3D tilt</strong> — hover any card and it follows your cursor with depth. There's also a 3D hero orb and coin bursts when you accept bookings. ✨", html: true },
-    { keys: ['theme','dark mode','light mode','color'], reply: "Click the <strong>🌙 / ☀️ icon</strong> in the top-right to toggle dark/light mode.", html: true },
-    { keys: ['shortcut','keyboard','ctrl','hotkey'], reply: "Keyboard shortcuts:\n• <strong>Ctrl+K</strong> → command palette\n• <strong>/</strong> → focus search\n• <strong>Esc</strong> → close modals", html: true },
-    { keys: ['who am i','my role','my account','acting as'], reply: () => {
-        try { if (typeof userById === 'function' && typeof CURRENT_USER_ID !== 'undefined') { const me = userById(CURRENT_USER_ID); if (me) return `You're acting as <strong>${me.name}</strong> (${me.role}). Switch users from the top-right dropdown.`; } } catch(e) {}
-        return "You're browsing as a guest.";
-      }, html: true },
-    { keys: ['help','what can you do','how','guide','tutorial','demo'], reply: "Here's what I can help with:\n• 📝 Posting gigs & pricing\n• 🎯 AI Match & AI Draft\n• 💬 Chat & reviews\n• 💰 Escrow payments\n• 🏆 Badges & profiles\n• ✨ 3D animations\n\nJust ask!", html: true },
-    { keys: ['thank','thanks','thx','ty'], reply: "You're welcome! 🙌 Anything else?" },
-    { keys: ['bye','goodbye','see you','later','cya'], reply: "See you around! Come back anytime. 👋" },
-  ];
-
-  function getReply(q) {
-    const text = q.toLowerCase().trim();
-    if (!text) return null;
-    let best = null, bestScore = 0;
-    for (const entry of KB) {
-      let score = 0;
-      for (const k of entry.keys) if (text.includes(k)) score += k.length;
-      if (score > bestScore) { bestScore = score; best = entry; }
-    }
-    if (!best) return null;
-    const reply = typeof best.reply === 'function' ? best.reply() : best.reply;
-    return { text: reply, html: !!best.html };
-  }
-
-  function getFollowUpChips(prevQ) {
-    const q = prevQ.toLowerCase();
-    if (q.includes('book')) return ['What is AI Match?', 'How does escrow work?'];
-    if (q.includes('post') || q.includes('gig')) return ['How does price suggester work?', 'How do badges work?'];
-    if (q.includes('escrow') || q.includes('payment')) return ['How do I chat with the creator?', 'How do reviews work?'];
-    if (q.includes('review') || q.includes('badge')) return ['How do profiles work?', 'How does escrow work?'];
-    return ['help', 'Book a gig', 'Post a gig'];
-  }
-
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    const q = input.value.trim();
-    if (!q) return;
-    addMessage(q, 'me');
-    input.value = '';
-    renderChips([]);
-    await new Promise(r => setTimeout(r, 200));
-    const answer = getReply(q);
-    if (answer) {
-      await botReply(answer.text, answer.html, getFollowUpChips(q));
+  window.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    layer.classList.add('active');
+    
+    // Move dot instantly
+    dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    
+    // Check for hover targets
+    const target = e.target;
+    if (target.closest('button, a, input, select, textarea')) {
+      layer.classList.add('hover-interactive');
+    } else if (target.closest('.gig-card')) {
+      layer.classList.add('hover-card');
     } else {
-      await botReply(`Hmm, I'm not sure about that one. 🤔 Try asking about:\n\n• Posting gigs\n• Booking a creator\n• AI Match or AI Draft\n• Escrow payments\n• Reviews and badges\n• 3D animations\n\nOr type <strong>"help"</strong> for the full list.`, true, ['help', 'How do I book?', 'What is AI Match?', 'How does escrow work?']);
+      layer.classList.remove('hover-interactive', 'hover-card');
     }
   });
-})();
 
-/* BOOT */
-renderUserSelect();
-renderPostForm();
-renderBadges();
-renderMarketplace();
-applyParallax();
+  // Smooth follow for halo
+  function animateHalo() {
+    haloX += (mouseX - haloX) * 0.15;
+    haloY += (mouseY - haloY) * 0.15;
+    halo.style.transform = `translate(${haloX}px, ${haloY}px)`;
+    requestAnimationFrame(animateHalo);
+  }
+  animateHalo();
 
-window.addEventListener('storage', e => {
-  if (e.key === DB_KEY) {
-    DB = JSON.parse(e.newValue || '{}');
-    if (!DB.messages) DB.messages = {};
-    if (!DB.reviews) DB.reviews = [];
-    if (!DB.activities) DB.activities = [];
-    renderBadges();
-    const v = $('.view.active').id.replace('view-','');
-    if (v === 'marketplace') renderMarketplace();
-    else if (v === 'dashboard') renderDashboard();
-    else if (v === 'bookings') renderMyBookings();
-    else if (v === 'messages') renderMessages();
-    if (activeChatBookingId) renderChatThread();
+  // Click ripples
+  window.addEventListener('click', e => {
+    const rippleLayer = $('#clickRippleLayer');
+    const r1 = document.createElement('div');
+    r1.className = 'click-ripple';
+    r1.style.left = e.clientX + 'px';
+    r1.style.top = e.clientY + 'px';
+    rippleLayer.appendChild(r1);
+    
+    const r2 = document.createElement('div');
+    r2.className = 'click-ripple secondary';
+    r2.style.left = e.clientX + 'px';
+    r2.style.top = e.clientY + 'px';
+    rippleLayer.appendChild(r2);
+
+    setTimeout(() => { r1.remove(); r2.remove(); }, 800);
+  });
+}
+
+// 4. INITIALIZE EVERYTHING ON LOAD
+document.addEventListener('DOMContentLoaded', () => {
+  initCustomCursor();
+  renderGigs(); // Renders the cards!
+  
+  // Render Category Chips
+  const chipsContainer = $('#categoryChips');
+  if (chipsContainer) {
+    chipsContainer.innerHTML = `
+      <button class="chip active" onclick="filterCategory(this, 'All')">All</button>
+      ${CATEGORIES.map(c => `<button class="chip" onclick="filterCategory(this, '${c}')">${c}</button>`).join('')}
+    `;
+  }
+
+  // Render User Dropdown
+  const userSelect = $('#userSelect');
+  if (userSelect) {
+    userSelect.innerHTML = DB.users.map(u => `<option value="${u.id}" ${u.id === CURRENT_USER_ID ? 'selected' : ''}>${u.name}</option>`).join('');
   }
 });
+
+// Helper for Category clicking
+function filterCategory(btn, cat) {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  renderGigs(cat);
+}
+
+// Placeholder for booking modal so the "Book" button doesn't throw an error
+function openBookingModal(gigId) {
+  const modal = $('#bookingModal');
+  if (modal) {
+    modal.classList.add('open');
+    // You can add the logic to populate the modal summary here if you have it
+  }
+}
 </script>
 </body>
 </html>
