@@ -1991,6 +1991,33 @@ document.getElementById('userSelect')?.addEventListener('change', () => {
     renderMessages();
   }, 100);
 });
+  /* =========================================================
+   FIX CONFIRMATION MODAL BUTTONS
+   ========================================================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+  const confirmModal = document.getElementById('confirmModal');
+  const confirmViewBookings = document.getElementById('confirmViewBookings');
+  const confirmClose = document.getElementById('confirmClose');
+
+  // 1. "View My Sessions" Button
+  if (confirmViewBookings) {
+    confirmViewBookings.addEventListener('click', () => {
+      confirmModal.classList.remove('open'); // Close the popup
+      
+      // Trigger the click on the "My Sessions" tab to navigate there
+      const sessionsTab = document.querySelector('nav.tabs button[data-view="bookings"]');
+      if (sessionsTab) sessionsTab.click();
+    });
+  }
+
+  // 2. "Keep Browsing" Button
+  if (confirmClose) {
+    confirmClose.addEventListener('click', () => {
+      confirmModal.classList.remove('open'); // Just close the popup
+    });
+  }
+});
 </script>
 </body>
 </html>
