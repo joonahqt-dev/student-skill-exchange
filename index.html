@@ -1674,6 +1674,323 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+  /* =========================================================
+   BOOKING, DASHBOARD, & MESSAGES LOGIC (FULL APP LOOP)
+   ========================================================= */
+
+// Global variable to keep track of the current chat open
+let activeChatId = null;
+
+// 1. OPEN BOOKING MODAL
+function openBookingModal(gigId) {
+  const gig = gigById(gigId);
+  if (!gig) return;
+  
+  const creator = userById(gig.creatorId);
+  const modal = document.getElementById('bookingModal');
+  
+  // Set the hidden input value
+  document.getElementById('modalGigId').value = gigId;
+  
+  // Populate the summary
+  document.getElementById('modalSummary').innerHTML = `
+    <div class="row"><span class="k">Tutor</span><span class="v">${creator.name}</span></div>
+    <div class="row"><span class="k">Subject</span><span class="v">${escapeHtml(gig.title)}</span></div>
+    <div class="row"><span class="k">Rate</span><span class="v" style="color:var(--green)">${fmtMoney(gig.rate)} / hr</span></div>
+  `;
+  
+  // Pre-fill name if the current user is a client
+  const currentUser = userById(CURRENT_USER_ID);
+  document.getElementById('bName').value = currentUser.name;
+
+  modal.classList.add('open');
+}
+
+// 2. HANDLE BOOKING SUBMISSION
+document.getElementById('bookingForm')?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  const gigId = document.getElementById('modalGigId').value;
+  const gig = gigById(gigId);
+  const message = document.getElementById('bMessage').value;
+  const clientName = document.getElementById('bName').value;
+
+  // Create the booking object
+  const newBooking = {
+    id: 'b_' + Date.now(),
+    gigId: gigId,
+    clientId: CURRENT_USER_ID, // Person booking
+    creatorId: gig.creatorId, // Person getting booked
+    message: message,
+    status: 'pending', // pending, accepted, declined
+    createdAt: Date.now()
+  };
+
+  // Save to DB
+  DB.bookings.push(newBooking);
+  
+  // Create an empty chat thread for this booking
+  DB.messages[newBooking.id] = [
+    { senderId: CURRENT_USER_ID, text: message, time: Date.now() }
+  ];
+  
+  saveDB();
+
+  // Close booking modal and show confirmation
+  document.getElementById('bookingModal').classList.remove('open');
+  document.getElementById('confirmModal').classList.add('open');
+  document.getElementById('confirmText').innerText = `Your session request has been sent to ${userById(gig.creatorId).name}. They will respond shortly.`;
+  
+  // Reset form
+  document.getElementById('bMessage').value = '';
+  document.getElementById('msgCount').textContent = '0';
+
+  // Re-render everything
+  renderDashboard();
+  renderBookings();
+  renderMessages();
+});
+
+// 3. RENDER DASHBOARD (Incoming Requests for Tutors)
+function renderDashboard() {
+  const statsRow = document.getElementById('creatorStats');
+  const incomingList = document.getElementById('incomingBookings');
+  if (!statsRow || !incomingList) return;
+
+  // Filter bookings where the current user is the TUTOR
+  const myBookings = DB.bookings.filter(b => b.creatorId === CURRENT_USER_ID);
+  
+  // Calculate Stats
+  const pendingCount = myBookings.filter(b => b.status === 'pending').length;
+  const acceptedCount = myBookings.filter(b => b.status === 'accepted').length;
+  const totalEarned = myBookings.filter(b => b.status === 'accepted').reduce((sum, b) => {
+    const gig = gigById(b.gigId);
+    return sum + (gig ? gig.rate : 0);
+  }, 0);
+
+  statsRow.innerHTML = `
+    <div class="stat-card purple"><div class="stat-num">${pendingCount}</div><div class="stat-lbl">Pending Requests</div></div>
+    <div class="stat-card green"><div class="stat-num">${acceptedCount}</div><div class="stat-lbl">Active Sessions</div></div>
+    <div class="stat-card cyan"><div class="stat-num">${fmtMoney(totalEarned)}</div><div class="stat-lbl">Total Earned</div></div>
+  `;
+
+  // Render Incoming Requests
+  if (myBookings.length === 0) {
+    incomingList.innerHTML = `<div class="empty"><div class="icon">📭</div><h3>No requests yet</h3><p>When students book your gigs, they will appear here.</p></div>`;
+    return;
+  }
+
+  incomingList.innerHTML = myBookings.map(booking => {
+    const gig = gigById(booking.gigId);
+    const client = userById(booking.clientId);
+    if (!gig || !client) return '';
+
+    return `
+      <div class="booking-card">
+        <div class="booking-main">
+          ${avatarHTML(client, 'lg')}
+          <div class="info">
+            <h4>${escapeHtml(gig.title)}</h4>
+            <div class="meta">
+              <span>Requested by <strong>${client.name}</strong></span>
+              <span class="dot">•</span>
+              <span>${timeAgo(booking.createdAt)}</span>
+            </div>
+            <div class="msg">"${escapeHtml(booking.message)}"</div>
+          </div>
+        </div>
+        <div class="booking-actions">
+          <span class="status ${booking.status}">${booking.status}</span>
+          ${booking.status === 'pending' ? `
+            <button class="btn btn-success btn-sm" onclick="updateBookingStatus('${booking.id}', 'accepted')">Accept</button>
+            <button class="btn btn-danger btn-sm" onclick="updateBookingStatus('${booking.id}', 'declined')">Decline</button>
+          ` : ''}
+          <button class="btn btn-ghost btn-sm" onclick="openChat('${booking.id}')">Message</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// 4. HANDLE ACCEPT/DECLINE
+function updateBookingStatus(bookingId, newStatus) {
+  const booking = DB.bookings.find(b => b.id === bookingId);
+  if (booking) {
+    booking.status = newStatus;
+    saveDB();
+    renderDashboard();
+    renderBookings();
+    
+    // Show toast
+    const toast = document.getElementById('toast');
+    document.getElementById('toastText').textContent = `Booking ${newStatus}!`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+}
+
+// 5. RENDER MY BOOKINGS (For Clients)
+function renderBookings() {
+  const myList = document.getElementById('myBookings');
+  if (!myList) return;
+
+  // Filter bookings where the current user is the CLIENT
+  const myBookings = DB.bookings.filter(b => b.clientId === CURRENT_USER_ID);
+
+  if (myBookings.length === 0) {
+    myList.innerHTML = `<div class="empty"><div class="icon">🔍</div><h3>No sessions booked</h3><p>Find a tutor in the marketplace and book your first session!</p></div>`;
+    return;
+  }
+
+  myList.innerHTML = myBookings.map(booking => {
+    const gig = gigById(booking.gigId);
+    const creator = userById(booking.creatorId);
+    if (!gig || !creator) return '';
+
+    return `
+      <div class="booking-card">
+        <div class="booking-main">
+          ${avatarHTML(creator, 'lg')}
+          <div class="info">
+            <h4>${escapeHtml(gig.title)}</h4>
+            <div class="meta">
+              <span>Tutor: <strong>${creator.name}</strong></span>
+              <span class="dot">•</span>
+              <span>${timeAgo(booking.createdAt)}</span>
+            </div>
+            <div class="msg">"${escapeHtml(booking.message)}"</div>
+          </div>
+        </div>
+        <div class="booking-actions">
+          <span class="status ${booking.status}">${booking.status}</span>
+          <button class="btn btn-ghost btn-sm" onclick="openChat('${booking.id}')">Message</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// 6. RENDER MESSAGES LIST
+function renderMessages() {
+  const msgList = document.getElementById('messagesList');
+  if (!msgList) return;
+
+  // Get all bookings involving the current user
+  const myChats = DB.bookings.filter(b => b.clientId === CURRENT_USER_ID || b.creatorId === CURRENT_USER_ID);
+
+  if (myChats.length === 0) {
+    msgList.innerHTML = `<div class="empty"><div class="icon">💬</div><h3>No messages</h3><p>Your active conversations will appear here.</p></div>`;
+    return;
+  }
+
+  msgList.innerHTML = myChats.map(booking => {
+    const gig = gigById(booking.gigId);
+    if (!gig) return '';
+    
+    // Determine who the "other" person is
+    const otherUserId = CURRENT_USER_ID === booking.clientId ? booking.creatorId : booking.clientId;
+    const otherUser = userById(otherUserId);
+    
+    const chatMsgs = DB.messages[booking.id] || [];
+    const lastMsg = chatMsgs.length > 0 ? chatMsgs[chatMsgs.length - 1].text : "No messages yet";
+
+    return `
+      <div class="booking-card" style="cursor:pointer;" onclick="openChat('${booking.id}')">
+        <div class="booking-main">
+          ${avatarHTML(otherUser, 'lg')}
+          <div class="info">
+            <h4>${otherUser.name}</h4>
+            <div class="meta">${escapeHtml(gig.title)}</div>
+            <div style="font-size:12.5px; color:var(--muted); margin-top:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+              ${escapeHtml(lastMsg)}
+            </div>
+          </div>
+        </div>
+        <div class="booking-actions">
+          <button class="btn btn-primary btn-sm">Open Chat</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// 7. CHAT SYSTEM
+function openChat(bookingId) {
+  activeChatId = bookingId;
+  const booking = DB.bookings.find(b => b.id === bookingId);
+  if (!booking) return;
+  
+  const otherUserId = CURRENT_USER_ID === booking.clientId ? booking.creatorId : booking.clientId;
+  const otherUser = userById(otherUserId);
+  
+  document.getElementById('chatHead').innerHTML = `
+    ${avatarHTML(otherUser)}
+    <div>
+      <div class="name">${otherUser.name}</div>
+      <div class="online">Online</div>
+    </div>
+  `;
+  
+  renderChatMessages();
+  
+  // Open the modal
+  document.getElementById('chatModal').classList.add('open');
+}
+
+function renderChatMessages() {
+  const chatBody = document.getElementById('chatBody');
+  if (!chatBody || !activeChatId) return;
+  
+  const msgs = DB.messages[activeChatId] || [];
+  
+  chatBody.innerHTML = msgs.map(m => {
+    const isMe = m.senderId === CURRENT_USER_ID;
+    return `
+      <div class="chat-msg ${isMe ? 'me' : 'them'}">
+        ${escapeHtml(m.text)}
+        <div class="time">${new Date(m.time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+      </div>
+    `;
+  }).join('');
+  
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+document.getElementById('chatSend')?.addEventListener('click', () => {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text || !activeChatId) return;
+  
+  // Add message to DB
+  if (!DB.messages[activeChatId]) DB.messages[activeChatId] = [];
+  DB.messages[activeChatId].push({
+    senderId: CURRENT_USER_ID,
+    text: text,
+    time: Date.now()
+  });
+  
+  saveDB();
+  input.value = '';
+  renderChatMessages();
+  renderMessages(); // Update the last message preview in the sidebar
+});
+
+// 8. INITIALIZE APP LOOP ON LOAD
+// (Adding this to a slight timeout ensures other scripts have loaded first)
+setTimeout(() => {
+  renderDashboard();
+  renderBookings();
+  renderMessages();
+}, 100);
+
+// Re-render lists when the "Acting as" dropdown changes
+document.getElementById('userSelect')?.addEventListener('change', () => {
+  setTimeout(() => {
+    renderDashboard();
+    renderBookings();
+    renderMessages();
+  }, 100);
+});
 </script>
 </body>
 </html>
