@@ -1162,6 +1162,203 @@ function gigStats(gigId) {
   const avg = rs.reduce((s,r) => s + r.rating, 0) / rs.length;
   return { avg: Math.round(avg*10)/10, count: rs.length };
 }
+
+/* =========================================================
+   MISSING UI & ANIMATION LOGIC (RESTORED)
+   ========================================================= */
+
+// 1. RENDER THE CARDS
+function renderGigs(filterCat = 'All', searchQuery = '') {
+  const grid = $('#gigGrid');
+  if (!grid) return;
+  
+  let filtered = DB.gigs;
+  
+  if (filterCat !== 'All') {
+    filtered = filtered.filter(g => g.category === filterCat);
+  }
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    filtered = filtered.filter(g => g.title.toLowerCase().includes(q) || g.description.toLowerCase().includes(q));
+  }
+
+  grid.innerHTML = filtered.map(gig => {
+    const creator = userById(gig.creatorId);
+    const stats = gigStats(gig.id);
+    const gradient = CATEGORY_GRADIENTS[gig.category] || ['#0ea5e9', '#38bdf8'];
+    const catInitials = gig.category.substring(0, 2).toUpperCase();
+    
+    // Star rendering
+    let starsHtml = '';
+    if (stats.count > 0) {
+      starsHtml = `<div class="gig-rating"><span class="stars">${'★'.repeat(Math.round(stats.avg))}${'☆'.repeat(5 - Math.round(stats.avg))}</span> <span class="num">${stats.avg}</span> <span class="count">(${stats.count})</span></div>`;
+    } else {
+      starsHtml = `<div class="gig-rating"><span class="count">New</span></div>`;
+    }
+
+    return `
+      <div class="gig-card" data-parallax="in" onclick="openBookingModal('${gig.id}')">
+        <div class="gig-cover" style="background: linear-gradient(135deg, ${gradient[0]}, ${gradient[1]});">
+          <div class="cover-cat">${catInitials}</div>
+          <div class="badges">
+            ${creator.verified ? '<span class="badge verified">Verified</span>' : ''}
+            ${gig.hasVideo ? `<span class="badge hot">Intro</span>` : ''}
+          </div>
+        </div>
+        <div class="gig-body">
+          <div class="gig-cat">${gig.category}</div>
+          <h3>${escapeHtml(gig.title)}</h3>
+          <div class="desc">${escapeHtml(gig.description)}</div>
+          ${starsHtml}
+          <div class="gig-creator">
+            ${avatarHTML(creator)}
+            <div class="meta">
+              <div class="name">${escapeHtml(creator.name)} ${creator.verified ? '✓' : ''}</div>
+              <div class="time">Responds in ~${creator.responseHrs || 1}h</div>
+            </div>
+          </div>
+        </div>
+        <div class="gig-footer">
+          <div class="price">
+            <div class="amt">${fmtMoney(gig.rate)}</div>
+            <div class="per">Per Hour</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); openBookingModal('${gig.id}')">Book</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Re-initialize 3D Tilt for the new cards
+  init3DTilt();
+}
+
+// 2. 3D TILT ANIMATION
+function init3DTilt() {
+  const cards = document.querySelectorAll('.gig-card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -10; 
+      const rotateY = ((x - centerX) / centerX) * 10;
+      
+      card.style.setProperty('--rx', `${rotateX}deg`);
+      card.style.setProperty('--ry', `${rotateY}deg`);
+      card.style.setProperty('--mx', `${x}px`);
+      card.style.setProperty('--my', `${y}px`);
+      card.classList.add('tilting');
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.classList.remove('tilting');
+      card.style.setProperty('--rx', '0deg');
+      card.style.setProperty('--ry', '0deg');
+    });
+  });
+}
+
+// 3. CUSTOM CURSOR LOGIC
+function initCustomCursor() {
+  const layer = $('#cursorLayer');
+  const dot = $('#cursorDot');
+  const halo = $('#cursorHalo');
+  const label = $('#cursorLabel');
+  if (!layer) return;
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let haloX = mouseX;
+  let haloY = mouseY;
+
+  window.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    layer.classList.add('active');
+    
+    // Move dot instantly
+    dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    
+    // Check for hover targets
+    const target = e.target;
+    if (target.closest('button, a, input, select, textarea')) {
+      layer.classList.add('hover-interactive');
+    } else if (target.closest('.gig-card')) {
+      layer.classList.add('hover-card');
+    } else {
+      layer.classList.remove('hover-interactive', 'hover-card');
+    }
+  });
+
+  // Smooth follow for halo
+  function animateHalo() {
+    haloX += (mouseX - haloX) * 0.15;
+    haloY += (mouseY - haloY) * 0.15;
+    halo.style.transform = `translate(${haloX}px, ${haloY}px)`;
+    requestAnimationFrame(animateHalo);
+  }
+  animateHalo();
+
+  // Click ripples
+  window.addEventListener('click', e => {
+    const rippleLayer = $('#clickRippleLayer');
+    const r1 = document.createElement('div');
+    r1.className = 'click-ripple';
+    r1.style.left = e.clientX + 'px';
+    r1.style.top = e.clientY + 'px';
+    rippleLayer.appendChild(r1);
+    
+    const r2 = document.createElement('div');
+    r2.className = 'click-ripple secondary';
+    r2.style.left = e.clientX + 'px';
+    r2.style.top = e.clientY + 'px';
+    rippleLayer.appendChild(r2);
+
+    setTimeout(() => { r1.remove(); r2.remove(); }, 800);
+  });
+}
+
+// 4. INITIALIZE EVERYTHING ON LOAD
+document.addEventListener('DOMContentLoaded', () => {
+  initCustomCursor();
+  renderGigs(); // Renders the cards!
+  
+  // Render Category Chips
+  const chipsContainer = $('#categoryChips');
+  if (chipsContainer) {
+    chipsContainer.innerHTML = `
+      <button class="chip active" onclick="filterCategory(this, 'All')">All</button>
+      ${CATEGORIES.map(c => `<button class="chip" onclick="filterCategory(this, '${c}')">${c}</button>`).join('')}
+    `;
+  }
+
+  // Render User Dropdown
+  const userSelect = $('#userSelect');
+  if (userSelect) {
+    userSelect.innerHTML = DB.users.map(u => `<option value="${u.id}" ${u.id === CURRENT_USER_ID ? 'selected' : ''}>${u.name}</option>`).join('');
+  }
+});
+
+// Helper for Category clicking
+function filterCategory(btn, cat) {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  renderGigs(cat);
+}
+
+// Placeholder for booking modal so the "Book" button doesn't throw an error
+function openBookingModal(gigId) {
+  const modal = $('#bookingModal');
+  if (modal) {
+    modal.classList.add('open');
+    // You can add the logic to populate the modal summary here if you have it
+  }
+}
 </script>
 </body>
 </html>
