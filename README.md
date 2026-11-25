@@ -1,11 +1,10 @@
-# Gigly — Creator Gig Marketplace
+# Gigly — Students Gig Marketplace
 
 A marketplace where young creators monetize their skills and clients book them.
 
-**Hackathon ID:** [AZIS-VNBMAJ]
 
 ## Track
-Creator Economy — Creator Gig Marketplace
+Creator Economy — Students Gig Marketplace
 
 ## Tech Stack
 - Vanilla HTML + CSS + JavaScript (no build step required)
