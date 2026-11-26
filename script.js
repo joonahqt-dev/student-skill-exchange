@@ -13,25 +13,25 @@ const CATEGORY_GRADIENTS = {
 const AVATAR_COLORS = ['#8b5cf6','#ec4899','#3b82f6','#fb923c','#10b981','#fbbf24','#06b6d4','#f43f5e','#6366f1'];
 
 const SEED_USERS = [
-  { id:'u_aarav', name:'Aarav Mehta',  role:'creator', verified:true,  tagline:'CS Major · Tutoring DSA & Web Dev', completed:47, responseHrs:1.5, onTimePct:98 },
-  { id:'u_priya', name:'Priya Sharma', role:'client',  verified:true,  tagline:'Freshman, struggling with Calculus' },
-  { id:'u_rohan', name:'Rohan Iyer',   role:'client',  verified:false, tagline:'Business Major' },
-  { id:'u_neha',  name:'Neha Kapoor',  role:'creator', verified:true,  tagline:'Math & Physics Tutor', completed:31, responseHrs:2.5, onTimePct:96 },
+  { id:'u_aarav', name:'Dhruv Sharma',  role:'creator', verified:true,  tagline:'CS Major · Tutoring DSA & Web Dev', completed:47, responseHrs:1.5, onTimePct:98 },
+  { id:'u_priya', name:'Killer Queen', role:'client',  verified:true,  tagline:'Freshman, struggling with Calculus' },
+  { id:'u_rohan', name:'JOJO ',   role:'client',  verified:false, tagline:'Business Major' },
+  { id:'u_neha',  name:'Master Pankaj Sargotra',  role:'creator', verified:true,  tagline:'Math & Physics Tutor', completed:31, responseHrs:2.5, onTimePct:96 },
 ];
 
 const SEED_GIGS = [
-  { id:'g1', creatorId:'u_aarav', title:'I will tutor you in Data Structures & Algorithms', category:'Computer Science', rate:500, description:'Clear, step-by-step explanations for assignments and midterms. Includes practice problems.', createdAt: Date.now()-1000*60*60*2, hasVideo:true },
-  { id:'g2', creatorId:'u_neha',  title:'I will help you ace Calculus 1 and 2',   category:'Mathematics', rate:400, description:'We will go through past papers, limits, derivatives, and integrals together.', createdAt: Date.now()-1000*60*60*8, hasVideo:false },
-  { id:'g3', creatorId:'u_aarav', title:'I will build a responsive HTML/CSS project with you', category:'Computer Science', rate:600, description:'Learn by doing. I will guide you in building a landing page or portfolio.', createdAt: Date.now()-1000*60*60*20, hasVideo:false },
-  { id:'g4', creatorId:'u_neha',  title:'I will proofread and edit your English essays', category:'Writing', rate:250, description:'Grammar check, flow improvement, and structural feedback to get you an A.', createdAt: Date.now()-1000*60*60*40, hasVideo:true },
-  { id:'g5', creatorId:'u_aarav', title:'I will teach you the basics of Financial Accounting', category:'Business', rate:450, description:'Debits, credits, balance sheets, and income statements made simple.', createdAt: Date.now()-1000*60*60*60, hasVideo:false },
-  { id:'g6', creatorId:'u_neha',  title:'Conversational Spanish practice partner', category:'Languages', rate:300, description:'Let us chat in Spanish to improve your fluency. Beginners welcome!', createdAt: Date.now()-1000*60*60*90, hasVideo:false },
+  { id:'g1', creatorId:'u_dhruv', title:'I will tutor you in Data Structures & Algorithms', category:'Computer Science', rate:500, description:'Clear, step-by-step explanations for assignments and midterms. Includes practice problems.', createdAt: Date.now()-1000*60*60*2, hasVideo:true },
+  { id:'g2', creatorId:'u_pankaj',  title:'I will help you ace Calculus 1 and 2',   category:'Mathematics', rate:400, description:'We will go through past papers, limits, derivatives, and integrals together.', createdAt: Date.now()-1000*60*60*8, hasVideo:false },
+  { id:'g3', creatorId:'u_dhruv', title:'I will build a responsive HTML/CSS project with you', category:'Computer Science', rate:600, description:'Learn by doing. I will guide you in building a landing page or portfolio.', createdAt: Date.now()-1000*60*60*20, hasVideo:false },
+  { id:'g4', creatorId:'u_pankaj',  title:'I will proofread and edit your English essays', category:'Writing', rate:250, description:'Grammar check, flow improvement, and structural feedback to get you an A.', createdAt: Date.now()-1000*60*60*40, hasVideo:true },
+  { id:'g5', creatorId:'u_dhruv', title:'I will teach you the basics of Financial Accounting', category:'Business', rate:450, description:'Debits, credits, balance sheets, and income statements made simple.', createdAt: Date.now()-1000*60*60*60, hasVideo:false },
+  { id:'g6', creatorId:'u_pankaj',  title:'Conversational Spanish practice partner', category:'Languages', rate:300, description:'Let us chat in Spanish to improve your fluency. Beginners welcome!', createdAt: Date.now()-1000*60*60*90, hasVideo:false },
 ];
 
 const SEED_REVIEWS = [
-  { id:'r1', gigId:'g1', reviewerId:'u_priya', rating:5, text:'Aarav explained recursion so well! I finally passed my midterm.', createdAt: Date.now()-1000*60*60*24*3, verified:true },
-  { id:'r2', gigId:'g1', reviewerId:'u_rohan', rating:5, text:'Super patient and knew his stuff. Highly recommend.', createdAt: Date.now()-1000*60*60*24*8, verified:true },
-  { id:'r3', gigId:'g2', reviewerId:'u_priya', rating:4, text:'Great help with Calculus, took a day to reply initially but the session was great.', createdAt: Date.now()-1000*60*60*24*5, verified:true },
+  { id:'r1', gigId:'g1', reviewerId:'u_Killer queen', rating:5, text:'Aarav explained recursion so well! I finally passed my midterm.', createdAt: Date.now()-1000*60*60*24*3, verified:true },
+  { id:'r2', gigId:'g1', reviewerId:'u_JOJO', rating:5, text:'Super patient and knew his stuff. Highly recommend.', createdAt: Date.now()-1000*60*60*24*8, verified:true },
+  { id:'r3', gigId:'g2', reviewerId:'u_killer queen', rating:4, text:'Great help with Calculus, took a day to reply initially but the session was great.', createdAt: Date.now()-1000*60*60*24*5, verified:true },
 ];
 
 function loadDB() {
