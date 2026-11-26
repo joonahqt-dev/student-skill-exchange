@@ -37,14 +37,18 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Bangers', cursive;
   background-color: var(--bg);
+  /* Manga Halftone Dot Pattern */
   background-image: radial-gradient(#2a004f 15%, transparent 16%);
   background-size: 20px 20px;
   color: var(--text); line-height: 1.5; min-height: 100vh; overflow-x: hidden;
 }
 
-/* ================= LAYOUT (Fixing the broken page) ================= */
+/* ================= HIDE OLD BACKGROUND SVGS ================= */
+.scene { display: none !important; }
+
+/* ================= LAYOUT SKELETON ================= */
 .app { position: relative; z-index: 1; display: flex; flex-direction: column; min-height: 100vh; }
-main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 20px 28px 100px; }
+main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 40px 28px 100px; }
 .view { display: none; }
 .view.active { display: block; animation: viewEnter 0.4s cubic-bezier(0.16,1,0.3,1); }
 @keyframes viewEnter { from{opacity:0;transform:translateY(12px);} to{opacity:1;transform:none;} }
@@ -84,6 +88,7 @@ nav.tabs button:hover, nav.tabs button.active {
 .user-switch select { border: 4px solid #000; padding: 5px; font-family: 'Bangers', cursive; font-size: 18px; background: #fff; cursor: pointer; }
 
 /* ================= HERO & SEARCH ================= */
+.page-head { margin-bottom: 30px; position: relative; }
 .page-head h1 {
   font-size: 60px; line-height: 1; color: var(--cyan);
   -webkit-text-stroke: 2px #000;
@@ -97,18 +102,20 @@ nav.tabs button:hover, nav.tabs button.active {
 .ai-search-wrap { background: #fff; border: 5px solid #000; box-shadow: 8px 8px 0 #000; padding: 20px; margin-bottom: 30px; }
 .ai-search-head { font-size: 22px; margin-bottom: 10px; color: #000; }
 .ai-search-wrap form { display: flex; gap: 10px; }
-.ai-search-wrap input { flex: 1; border: 4px solid #000; padding: 10px 15px; font-family: 'Inter', sans-serif; font-weight: bold; font-size: 16px; }
+.ai-search-wrap input { flex: 1; border: 4px solid #000; padding: 10px 15px; font-family: 'Inter', sans-serif; font-weight: bold; font-size: 16px; outline: none; }
+.ai-search-wrap input:focus { background: var(--cyan); }
+
 .filters { display: flex; gap: 15px; margin-bottom: 20px; }
 .search-wrap { flex: 1; }
-.search-wrap input { width: 100%; border: 4px solid #000; padding: 12px 15px; font-size: 16px; font-family: 'Inter', sans-serif; font-weight: bold; box-shadow: 4px 4px 0 #000; }
-.filters select { border: 4px solid #000; padding: 12px; font-family: 'Bangers', cursive; font-size: 20px; box-shadow: 4px 4px 0 #000; cursor: pointer; background: var(--cyan); }
+.search-wrap input { width: 100%; border: 4px solid #000; padding: 12px 15px; font-size: 16px; font-family: 'Inter', sans-serif; font-weight: bold; box-shadow: 4px 4px 0 #000; outline: none; }
+.filters select { border: 4px solid #000; padding: 12px; font-family: 'Bangers', cursive; font-size: 20px; box-shadow: 4px 4px 0 #000; cursor: pointer; background: var(--cyan); outline: none; }
 
 /* ================= CATEGORY CHIPS ================= */
 .chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
 .chip { 
   background: #fff; border: 4px solid #000; padding: 8px 15px; 
   font-family: 'Bangers', cursive; font-size: 20px; cursor: pointer; 
-  box-shadow: 4px 4px 0 #000; transition: 0.1s;
+  box-shadow: 4px 4px 0 #000; transition: 0.1s; color: #000;
 }
 .chip:hover, .chip.active { background: var(--accent); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
 
@@ -138,7 +145,7 @@ nav.tabs button:hover, nav.tabs button.active {
 .price .per { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: bold; }
 
 /* ================= BUTTONS ================= */
-.btn { border: 4px solid #000; font-family: 'Bangers', cursive; font-size: 20px; cursor: pointer; box-shadow: 4px 4px 0 #000; transition: 0.1s; padding: 8px 20px; position: relative; }
+.btn { border: 4px solid #000; font-family: 'Bangers', cursive; font-size: 20px; cursor: pointer; box-shadow: 4px 4px 0 #000; transition: 0.1s; padding: 8px 20px; position: relative; outline: none; }
 .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
 .btn-primary, .btn-ai { background: var(--cyan); color: #000; }
 .btn-primary:hover, .btn-ai:hover { background: var(--pink); color: #fff; }
@@ -193,13 +200,13 @@ nav.tabs button:hover, nav.tabs button.active {
 .chat-msg.them { background: #fff; align-self: flex-start; }
 .chat-msg.me { background: var(--pink); color: #fff; align-self: flex-end; }
 .chat-input { padding: 15px; border-top: 4px solid #000; display: flex; gap: 10px; }
-.chat-input input { flex: 1; border: 4px solid #000; padding: 10px; font-weight: bold; font-family: 'Inter', sans-serif; }
+.chat-input input { flex: 1; border: 4px solid #000; padding: 10px; font-weight: bold; font-family: 'Inter', sans-serif; outline: none; }
 .chat-input button { background: var(--accent); border: 4px solid #000; font-family: 'Bangers', cursive; font-size: 20px; padding: 0 20px; cursor: pointer; box-shadow: 4px 4px 0 #000; }
 
-.avatar { width: 40px; height: 40px; border-radius: 50%; border: 3px solid #000; display: grid; place-items: center; font-family: 'Bangers', cursive; font-size: 18px; color: #fff; box-shadow: 2px 2px 0 #000; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; border: 3px solid #000; display: grid; place-items: center; font-family: 'Bangers', cursive; font-size: 18px; color: #fff; box-shadow: 2px 2px 0 #000; flex-shrink: 0; }
 
 /* ================= CHATBOT (FAB) ================= */
-.chatbot-fab { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; border-radius: 50%; background: var(--pink); border: 5px solid #000; box-shadow: 6px 6px 0 #000; cursor: pointer; display: grid; place-items: center; z-index: 250; transition: 0.1s; }
+.chatbot-fab { position: fixed; bottom: 30px; right: 30px; width: 70px; height: 70px; border-radius: 50%; background: var(--pink); border: 5px solid #000; box-shadow: 6px 6px 0 #000; cursor: pointer; display: grid; place-items: center; z-index: 250; transition: 0.1s; color: #fff;}
 .chatbot-fab:hover { transform: scale(1.1); box-shadow: 8px 8px 0 #000; }
 .chatbot-panel { position: fixed; bottom: 110px; right: 30px; width: 380px; height: 550px; background: #fff; border: 6px solid #000; box-shadow: 15px 15px 0 #000; display: flex; flex-direction: column; z-index: 249; opacity: 0; pointer-events: none; transform: translateY(20px); transition: 0.3s; }
 .chatbot-panel.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
@@ -210,8 +217,14 @@ nav.tabs button:hover, nav.tabs button.active {
 .chatbot-input input { flex: 1; border: none; padding: 15px; font-family: 'Inter', sans-serif; font-weight: bold; outline: none; }
 .chatbot-input button { background: var(--accent); border: none; border-left: 5px solid #000; padding: 0 20px; cursor: pointer; }
 
-/* ================= ANIMATIONS & SCENES ================= */
-.scene { display: none; } /* Hide the old SVG scenes, we have a dope background now */
+/* ================= MISC ================= */
 .empty { background: #fff; border: 5px dashed #000; padding: 40px; text-align: center; box-shadow: 8px 8px 0 #000; }
 .empty h3 { font-size: 30px; color: var(--pink); }
 .empty p { font-family: 'Noto Sans JP', sans-serif; font-weight: bold; margin-bottom: 20px; }
+
+/* Mobile Fixes */
+@media (max-width: 900px) {
+  .topbar-inner { flex-direction: column; gap: 10px; }
+  nav.tabs { justify-content: center; }
+  .page-head h1 { font-size: 40px; }
+}
