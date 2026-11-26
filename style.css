@@ -37,14 +37,13 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Bangers', cursive;
   background-color: var(--bg);
-  /* Manga Halftone Dot Pattern */
   background-image: radial-gradient(#2a004f 15%, transparent 16%);
   background-size: 20px 20px;
   color: var(--text); line-height: 1.5; min-height: 100vh; overflow-x: hidden;
 }
 
-/* ================= HIDE OLD BACKGROUND SVGS ================= */
-.scene { display: none !important; }
+/* ================= HIDE OLD BACKGROUND SVGS & FLOATING ORBS ================= */
+.scene, .hero-orb-wrap, #cursorLayer { display: none !important; }
 
 /* ================= LAYOUT SKELETON ================= */
 .app { position: relative; z-index: 1; display: flex; flex-direction: column; min-height: 100vh; }
@@ -99,16 +98,19 @@ nav.tabs button:hover, nav.tabs button.active {
   font-family: 'Noto Sans JP', sans-serif; color: var(--accent);
   text-shadow: 2px 2px 0 #000; font-size: 18px; letter-spacing: 2px;
 }
+
+/* FIXED AI SEARCH BAR */
 .ai-search-wrap { background: #fff; border: 5px solid #000; box-shadow: 8px 8px 0 #000; padding: 20px; margin-bottom: 30px; }
 .ai-search-head { font-size: 22px; margin-bottom: 10px; color: #000; }
-.ai-search-wrap form { display: flex; gap: 10px; }
-.ai-search-wrap input { flex: 1; border: 4px solid #000; padding: 10px 15px; font-family: 'Inter', sans-serif; font-weight: bold; font-size: 16px; outline: none; }
+.ai-search-wrap form { display: flex; gap: 10px; flex-wrap: wrap; }
+.ai-search-wrap input { flex: 1; min-width: 200px; border: 4px solid #000; padding: 10px 15px; font-family: 'Inter', sans-serif; font-weight: bold; font-size: 16px; outline: none; }
 .ai-search-wrap input:focus { background: var(--cyan); }
 
-.filters { display: flex; gap: 15px; margin-bottom: 20px; }
-.search-wrap { flex: 1; }
+/* FIXED FILTERS BAR */
+.filters { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.search-wrap { flex: 1; min-width: 250px; }
 .search-wrap input { width: 100%; border: 4px solid #000; padding: 12px 15px; font-size: 16px; font-family: 'Inter', sans-serif; font-weight: bold; box-shadow: 4px 4px 0 #000; outline: none; }
-.filters select { border: 4px solid #000; padding: 12px; font-family: 'Bangers', cursive; font-size: 20px; box-shadow: 4px 4px 0 #000; cursor: pointer; background: var(--cyan); outline: none; }
+.filters select { border: 4px solid #000; padding: 12px; font-family: 'Bangers', cursive; font-size: 20px; box-shadow: 4px 4px 0 #000; cursor: pointer; background: var(--cyan); outline: none; height: 54px; }
 
 /* ================= CATEGORY CHIPS ================= */
 .chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
@@ -222,7 +224,6 @@ nav.tabs button:hover, nav.tabs button.active {
 .empty h3 { font-size: 30px; color: var(--pink); }
 .empty p { font-family: 'Noto Sans JP', sans-serif; font-weight: bold; margin-bottom: 20px; }
 
-/* Mobile Fixes */
 @media (max-width: 900px) {
   .topbar-inner { flex-direction: column; gap: 10px; }
   nav.tabs { justify-content: center; }
