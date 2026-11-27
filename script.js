@@ -109,23 +109,13 @@ function renderGigs(filterCat = 'All', searchQuery = '') {
     const gradient = CATEGORY_GRADIENTS[gig.category] || ['#0ea5e9', '#38bdf8'];
     const catInitials = gig.category.substring(0, 2).toUpperCase();
     
-        // Stand Stats (JoJo Style)
-    let starsHtml = `
-      <div class="stand-stats" style="display:flex; flex-direction:column; gap:6px; margin-top:10px; margin-bottom:10px;">
-        <div style="display:flex; align-items:center; gap:8px; font-size:11px; font-weight:bold; font-family:'Bangers',cursive; letter-spacing:1px;">
-          <span style="width:60px;">POWER</span>
-          <div style="flex:1; height:8px; background:#eee; border:2px solid #000;"><div style="width:${Math.min((stats.avg || 1) * 20, 100)}%; height:100%; background:var(--accent);"></div></div>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px; font-size:11px; font-weight:bold; font-family:'Bangers',cursive; letter-spacing:1px;">
-          <span style="width:60px;">SPEED</span>
-          <div style="flex:1; height:8px; background:#eee; border:2px solid #000;"><div style="width:${Math.min((stats.count || 1) * 15, 100)}%; height:100%; background:var(--cyan);"></div></div>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px; font-size:11px; font-weight:bold; font-family:'Bangers',cursive; letter-spacing:1px;">
-          <span style="width:60px;">RANGE</span>
-          <div style="flex:1; height:8px; background:#eee; border:2px solid #000;"><div style="width:${Math.min((stats.count || 1) * 10, 100)}%; height:100%; background:var(--pink);"></div></div>
-        </div>
-      </div>
-    `;
+    // Star rendering
+    let starsHtml = '';
+    if (stats.count > 0) {
+      starsHtml = `<div class="gig-rating"><span class="stars">${'★'.repeat(Math.round(stats.avg))}${'☆'.repeat(5 - Math.round(stats.avg))}</span> <span class="num">${stats.avg}</span> <span class="count">(${stats.count})</span></div>`;
+    } else {
+      starsHtml = `<div class="gig-rating"><span class="count">New</span></div>`;
+    }
 
     return `
       <div class="gig-card" data-parallax="in" onclick="openBookingModal('${gig.id}')">
@@ -328,28 +318,16 @@ document.addEventListener('DOMContentLoaded', () => {
     brandHome.addEventListener('click', () => switchView('marketplace'));
   }
 
-   // 3. THEME TOGGLE (ZA WARUDO - 3 Themes)
+  // 3. THEME TOGGLE (Light/Dark Mode)
   const themeToggle = document.getElementById('themeToggle');
   themeToggle?.addEventListener('click', () => {
-    // 1. Trigger "Time Stop" flash
-    document.body.classList.add('time-stop');
-    
-    setTimeout(() => {
-      const html = document.documentElement;
-      const currentTheme = html.getAttribute('data-theme');
-      
-      // 2. Cycle through Dark -> Light -> Golden Wind -> Dark
-      let newTheme = 'dark';
-      if (currentTheme === 'dark') newTheme = 'light';
-      else if (currentTheme === 'light') newTheme = 'golden';
-      
-      html.setAttribute('data-theme', newTheme);
-      localStorage.setItem(THEME_KEY, newTheme);
-      
-      // 3. Remove the flash after switching
-      setTimeout(() => document.body.classList.remove('time-stop'), 100);
-    }, 500); // Wait 0.5s for the flash effect
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem(THEME_KEY, newTheme);
   });
+
   // Load saved theme on page load
   const savedTheme = localStorage.getItem(THEME_KEY);
   if (savedTheme) {
