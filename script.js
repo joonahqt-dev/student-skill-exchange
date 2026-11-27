@@ -961,3 +961,67 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+/* ============ STAND ROSTER ============ */
+const STANDS = [
+  { name:'Jotaro Kujo',      stand:'Star Platinum',   color:'#00ffcc', sfx:'オラオラ', line:'ORA ORA ORA ORA!',          img:'' },
+  { name:'Dio Brando',       stand:'The World',       color:'#ffd700', sfx:'無駄無駄', line:'ZA WARUDO! TOKI YO TOMARE!', img:'', timestop:true },
+  { name:'Joseph Joestar',   stand:'Hermit Purple',   color:'#8b5cf6', sfx:'ゴゴゴ',   line:'Your next line is...',       img:'' },
+  { name:'Giorno Giovanna',  stand:'Gold Experience', color:'#ffb800', sfx:'ドドド',   line:'I, Giorno Giovanna, have a dream!', img:'' },
+  { name:'Rohan Kishibe',    stand:'Heaven\'s Door',  color:'#ff1493', sfx:'ズギュン', line:'I refuse!',                  img:'' },
+];
+
+function renderStandRoster() {
+  const roster = document.getElementById('standRoster');
+  if (!roster) return;
+  roster.innerHTML = STANDS.map((s, i) => `
+    <button class="stand-card" data-i="${i}" data-sfx="${s.sfx}" style="--c:${s.color}" aria-label="${s.name}">
+      <div class="stand-figure">
+        ${s.img ? `<img src="${s.img}" alt="${s.name}">` : `<div class="silhouette">${initials(s.name)}</div>`}
+      </div>
+      <div class="stand-name">${s.name}</div>
+      <span class="stand-sub">${s.stand}</span>
+    </button>`).join('');
+
+  roster.querySelectorAll('.stand-card').forEach(card => {
+    // 3D tilt
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--ry', ((e.clientX - r.left)/r.width - .5) * 30 + 'deg');
+      card.style.setProperty('--rx', ((e.clientY - r.top)/r.height - .5) * -30 + 'deg');
+    });
+    card.addEventListener('mouseleave', () => { card.style.setProperty('--rx','0deg'); card.style.setProperty('--ry','0deg'); });
+    // click = speak
+    card.addEventListener('click', () => standSpeak(STANDS[card.dataset.i], card));
+  });
+}
+
+let bubbleTimer;
+function standSpeak(s, card) {
+  const bubble = document.getElementById('standBubble');
+  document.querySelectorAll('.stand-card').forEach(c => c.classList.remove('speaking'));
+  card.classList.add('speaking');
+
+  bubble.style.setProperty('--bubble-c', s.color);
+  bubble.innerHTML = `${escapeHtml(s.line)}<small>— ${escapeHtml(s.name)}</small>`;
+  bubble.classList.add('show');
+
+  // voice (browser text-to-speech)
+  if ('speechSynthesis' in window) {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(s.line.replace(/!+/g,'!'));
+    u.rate = s.timestop ? 0.85 : 1.1;
+    u.pitch = s.timestop ? 0.6 : 0.9;
+    speechSynthesis.speak(u);
+  }
+
+  // ZA WARUDO effect
+  if (s.timestop) {
+    document.body.classList.add('time-stop');
+    setTimeout(() => document.body.classList.remove('time-stop'), 1200);
+  }
+
+  clearTimeout(bubbleTimer);
+  bubbleTimer = setTimeout(() => { bubble.classList.remove('show'); card.classList.remove('speaking'); }, 3000);
+}
+
+document.addEventListener('DOMContentLoaded', renderStandRoster);
