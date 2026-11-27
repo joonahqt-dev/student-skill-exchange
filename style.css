@@ -35,32 +35,21 @@
 }
 
 [data-theme="light"] {
-  /* Diamond is Unbreakable (Pink, Yellow, Cream) */
-  --bg: #fffcf0; 
-  --bg-soft: #fff5d1; 
-  --panel: #ffffff;
-  --panel-2: #fff0f5; 
-  --panel-3: #ffe4e1;
+  --bg: #fff8e1;        /* warm cream */
+  --bg-soft: #ffe9a8;
+  --panel-2: #fff0f5;
+  --accent: #ffd23f;    /* header = bright yellow */
+  --accent-2: #ffd23f;
+  --pink: #ff2e93;
+  --cyan: #00c2a8;      /* teal for buttons */
+  --green: #2ecc71;
+  --yellow: #ffd23f;
   --border: #000000;
   --border-soft: #000000;
   --text: #000000;
   --text-dim: #333333;
   --muted: #666666;
-  
-  --accent: #ff1493; /* Deep Pink */
-  --accent-2: #ff1493;
-  --accent-3: #ff69b4;
-  --accent-glow: rgba(255, 20, 147, 0.5);
-  
-  --pink: #ff1493;
-  --pink-glow: rgba(255, 20, 147, 0.4);
-  
-  --cyan: #ff8c00; 
-  --green: #32cd32; 
-  --green-soft: rgba(50, 205, 50, 0.2);
-  
   --red: #ff0000;
-  --yellow: #ffd700;
 }
 
 [data-theme="golden"] {
@@ -126,7 +115,7 @@ header.topbar {
 .topbar-inner {
   max-width: 1320px; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
-  gap: 20px; padding: 15px 28px;
+  gap: 12px; padding: 12px 20px;
 }
 .brand { display: flex; align-items: center; gap: 11px; font-size: 32px; color: #000; cursor: pointer; user-select: none; }
 .brand-mark {
@@ -135,11 +124,14 @@ header.topbar {
 }
 .brand-text { text-shadow: 2px 2px 0 var(--cyan); }
 
-nav.tabs { display: flex; gap: 8px; flex-wrap: wrap; background: transparent; border: none; padding: 0; }
+nav.tabs { display: flex; gap: 8px; flex-wrap: nowrap; background: transparent; border: none; padding: 0; }
 nav.tabs button {
-  background: #fff; border: 4px solid #000; padding: 8px 15px;
-  font-size: 20px; cursor: pointer;
-  box-shadow: 4px 4px 0 #000; transition: 0.1s; color: #000;
+  background: #fff; border: 4px solid #000; font-size: 17px; padding: 6px 11px;
+  font-family: 'Bangers', cursive; cursor: pointer;
+  box-shadow: 4px 4px 0 #000; transition: 0.1s; color: #000; white-space: nowrap;
+}
+@media (max-width: 1250px) { 
+  nav.tabs button { font-size: 15px; padding: 5px 8px; } 
 }
 nav.tabs button:hover, nav.tabs button.active {
   background: var(--pink); color: #fff; transform: translate(-2px, -2px);
@@ -156,7 +148,7 @@ nav.tabs button .pill.msg { background: var(--green); color: #000; }
 .icon-btn { width: 40px; height: 40px; background: #fff; border: 4px solid #000; color: #000; cursor: pointer; display: grid; place-items: center; box-shadow: 4px 4px 0 #000; transition: 0.1s; }
 .icon-btn:hover { background: var(--cyan); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #000; }
 .user-switch { display: flex; align-items: center; gap: 10px; background: #fff; padding: 4px 10px; border: 4px solid #000; box-shadow: 4px 4px 0 #000; }
-.user-switch label { font-size: 14px; color: #000; font-weight: 900; }
+.user-switch label { font-size: 14px; color: #000; font-weight: 900; white-space: nowrap; }
 .user-switch select { background: transparent; color: #000; border: none; font-size: 18px; font-family: 'Bangers', cursive; cursor: pointer; outline: none; }
 
 main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 40px 28px 100px; }
@@ -390,6 +382,10 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 40px 28
 .chatbot-input { display: flex; border-top: 5px solid #000; background: #fff; }
 .chatbot-input input { flex: 1; border: none; padding: 15px; font-family: 'Inter', sans-serif; font-weight: bold; outline: none; }
 .chatbot-input button { background: var(--accent); border: none; border-left: 5px solid #000; padding: 0 20px; cursor: pointer; }
+/* Light Mode Specific Fixes */
+[data-theme="light"] .page-head h1 { color: #ff2e93; text-shadow: 4px 4px 0 #000, 8px 8px 0 #00c2a8; }
+[data-theme="light"] nav.tabs button:hover,
+[data-theme="light"] nav.tabs button.active { background: #000; color: #ffd23f; }
 
 /* ================= CUSTOM CURSOR ================= */
 @media (hover: hover) and (pointer: fine) { 
@@ -439,6 +435,7 @@ main { flex: 1; max-width: 1320px; width: 100%; margin: 0 auto; padding: 40px 28
 ::-webkit-scrollbar-thumb { background: var(--accent); border: 3px solid #000; border-radius: 0; }
 ::-webkit-scrollbar-thumb:hover { background: var(--pink); }
 ::selection { background: var(--pink); color: #fff; }
+
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 900px) {
