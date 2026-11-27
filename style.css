@@ -106,6 +106,7 @@ body {
 
 /* ZA WARUDO Time Stop Effect */
 .time-stop { filter: invert(1) grayscale(1) !important; transition: filter 0.1s; }
+body.time-stop { filter: invert(1) grayscale(1); transition: filter .1s; }
 
 /* Headings use Manga font */
 h1, h2, h3, .brand-text, nav.tabs button, .btn, .chip, .gig-cat, .price .amt {
